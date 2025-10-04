@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://doyditic2y2vm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kqu6x"]
+
+[node name="Player" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_kqu6x")
