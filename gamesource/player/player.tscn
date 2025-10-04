@@ -1,12 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://doyditic2y2vm"]
+[gd_scene load_steps=3 format=3 uid="uid://doyditic2y2vm"]
+
+[ext_resource type="Texture2D" uid="uid://cn27i0ktnham8" path="res://assets/player/squashbob_beta.png" id="1_oul6g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kqu6x"]
+size = Vector2(108, 139)
 
 [node name="Player" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="SquashBob" type="CharacterBody2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="SquashBob"]
+scale = Vector2(0.281818, 0.312766)
+texture = ExtResource("1_oul6g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SquashBob"]
+position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_kqu6x")
