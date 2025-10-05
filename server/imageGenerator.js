@@ -15,7 +15,7 @@ export async function generateWeaponImage(name, description, bgColor = "#FF00FF"
 Name: ${name}
 Description: ${description}
 Format: PNG, 512x512, square, make the weapon point DIRECTLY up
-Background color: use this exact color without any gradients or changes. It must be EXACTLY this hexcode for future use.
+Background color: use this exact color without any gradients or changes. It must be EXACTLY this hexcode for future use. Absolutely no borders.
 No text or watermark.`;
 
 

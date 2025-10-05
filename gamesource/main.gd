@@ -7,10 +7,7 @@ func _ready():
 	gemini.request_completed.connect(_on_ai_response)
 
 	# Using a template:
-	gemini.send_template("weapon", "mountain")
-	gemini.send_template("weapon", "mouse")
-	gemini.send_template("weapon", "tree")
-	gemini.send_template("weapon", "catgirl")
+	gemini.send_template("weapon", "wise mystical tree")
 	
 	
 	
