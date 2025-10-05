@@ -7,6 +7,8 @@ var TweakerScene = preload("res://enemy/tweaker.tscn")
 @onready var experience_bar = $SBPlayer/ExperienceBar
 @onready var health_bar = $SBPlayer/HealthBar
 @onready var levelup_popup = $LevelUpPopup
+@onready var crafting_popup = $CraftingPopup
+@onready var in_game_ui = $SBPlayer/inGameUI
 
 func _ready():
 	spawn_enemy()
@@ -16,6 +18,9 @@ func _ready():
 	
 	# Connect popup closed signal
 	levelup_popup.popup_closed.connect(_on_levelup_message_submitted)
+	
+	# Connect crafting button
+	connect_crafting_button()
 	
 func spawn_enemy():
 	for i in 1:
@@ -39,6 +44,21 @@ func _on_levelup_message_submitted(message: String):
 	"""Handle when user submits their level-up message"""
 	print("Player's level-up message: ", message)
 	# You can save this message, display it, or do whatever you want with it
+
+func connect_crafting_button():
+	"""Connect the crafting button to toggle the crafting popup"""
+	# Find the crafting button in the in_game_ui
+	var crafting_button = in_game_ui.get_node("buttonContainer/craftingButton")
+	if crafting_button:
+		crafting_button.pressed.connect(_on_crafting_button_pressed)
+		print("Crafting button connected!")
+	else:
+		print("Crafting button not found!")
+
+func _on_crafting_button_pressed():
+	"""Handle crafting button press - toggle the popup"""
+	print("Crafting button pressed!")
+	crafting_popup.toggle_popup()
 
 func _physics_process(delta):
 	
