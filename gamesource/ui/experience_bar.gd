@@ -8,6 +8,9 @@ var current_exp: int = 0
 var current_level: int = 1
 var exp_to_next_level: int = 100
 
+# Signal for level up events
+signal level_up(new_level: int)
+
 # Configurable values that can be easily adjusted
 @export var base_exp_required: int = 100
 @export var exp_scaling_factor: float = 1.5
@@ -29,6 +32,8 @@ func check_level_up():
 		current_level += 1
 		update_exp_to_next_level()
 		print("Level up! Now level ", current_level)
+		# Emit level up signal
+		level_up.emit(current_level)
 
 func update_exp_to_next_level():
 	"""Calculate the experience required for the next level"""

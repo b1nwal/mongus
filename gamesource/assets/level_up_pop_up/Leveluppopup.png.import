@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c28qrbiwnt8ih"
-path="res://.godot/imported/tweaker3R.png-cf7825f18e2596a0c9a693e616e08c72.ctex"
+uid="uid://cj1u87iem3s3u"
+path="res://.godot/imported/Leveluppopup.png-3bf52b4abb822348db843dca0058d10a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/tweaker/tweaker3R.png"
-dest_files=["res://.godot/imported/tweaker3R.png-cf7825f18e2596a0c9a693e616e08c72.ctex"]
+source_file="res://assets/level_up_pop_up/Leveluppopup.png"
+dest_files=["res://.godot/imported/Leveluppopup.png-3bf52b4abb822348db843dca0058d10a.ctex"]
 
 [params]
 
