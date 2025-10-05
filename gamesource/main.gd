@@ -15,10 +15,7 @@ func _ready():
 	gemini.send_template("weapon", "rusty sword", "common")
 	gemini.send_template("weapon", "old dagger", "common")
 	gemini.send_template("weapon", "stone slab blade", "common")
-  spawn_enemy()
-
-				
-	
+	spawn_enemy()
 	
 func spawn_enemy():
 	for i in 1:
