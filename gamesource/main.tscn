@@ -31,6 +31,7 @@ texture = ExtResource("3_h2yge")
 scale = Vector2(4, 4)
 
 [node name="InventoryUI" parent="SBPlayer" instance=ExtResource("6_4c57u")]
+z_index = 1
 offset_left = -138.0
 offset_top = -64.0
 offset_right = -138.0
@@ -80,7 +81,7 @@ grow_horizontal = 1
 scale = Vector2(0.3, 0.3)
 
 [node name="LevelUpPopup" parent="SBPlayer" instance=ExtResource("9_levelup_popup")]
-z_index = 4
+z_index = 1
 offset_top = 16.0
 offset_bottom = 16.0
 scale = Vector2(0.3, 0.3)
