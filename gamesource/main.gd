@@ -8,7 +8,6 @@ var TweakerScene = preload("res://enemy/tweaker.tscn")
 @onready var health_bar = $SBPlayer/HealthBar
 
 func _ready():
-<<<<<<< Updated upstream
 	add_child(gemini)
 	gemini.request_completed.connect(_on_ai_response)
 
@@ -17,9 +16,7 @@ func _ready():
 	gemini.send_template("weapon", "ice sword", "common")
 	gemini.send_template("weapon", "ice sword", "rare")
 	gemini.send_template("weapon", "ice sword", "epic")
-	gemini.send_template("weapon", "ice sword", "legendary")
-=======
->>>>>>> Stashed changes
+	gemini.send_template("weapon", "ice sword", "legendary")	
 	spawn_enemy()
 	
 func spawn_enemy():

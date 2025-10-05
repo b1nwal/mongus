@@ -6,11 +6,11 @@ func _process(delta):
 	# Check if the swing test key was just pressed
 	
 	
-	
-	between += delta
-	if (between >= 3.5):
-		_swing_all_weapons()
-		between = 0.0
+	if Input.is_key_pressed(swing_test_key):
+		between += delta
+		if (between >= 3.5):
+			_swing_all_weapons()
+			between = 0.0
 
 # Function to swing all weapon children
 func _swing_all_weapons():
