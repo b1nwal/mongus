@@ -1,5 +1,7 @@
 extends "res://scripts/entity.gd"
 
+class_name Enemy
+
 var damage = 20
 var target
 var target_in_range

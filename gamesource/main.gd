@@ -13,10 +13,7 @@ func _ready():
 
 	# Using a template:
 	gemini.send_template("weapon", "ice sword", "trash")
-	gemini.send_template("weapon", "ice sword", "common")
 	gemini.send_template("weapon", "ice sword", "rare")
-	gemini.send_template("weapon", "ice sword", "epic")
-	gemini.send_template("weapon", "ice sword", "legendary")
 	spawn_enemy()
 	
 func spawn_enemy():
@@ -55,7 +52,7 @@ func add_weapon(data: Dictionary) -> void:
 	var image_texture = ImageTexture.create_from_image(img)
 	
 	var swing_weapon = SwingWeapon.new()
-	swing_weapon.weapon_info = {"name": data["name"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"]}
+	swing_weapon.weapon_info = {"name": data["name"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"], "cooldown": data["cooldown"]}
 
 	# Add the sprite as a child
 	$SBPlayer.add_child(swing_weapon)

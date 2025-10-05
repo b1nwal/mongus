@@ -5,26 +5,32 @@ var between: float = 0.0
 func _process(delta):
 	# Check if the swing test key was just pressed
 	
-	
-	
-	between += delta
-	if (between >= 3.5):
-		_swing_all_weapons()
-		between = 0.0
+	tick_weapons(delta)
 
 # Function to swing all weapon children
-func _swing_all_weapons():
-	# Loop over all direct children
+func tick_weapons(delta):
 	for child in get_children():
-		# Only swing weapons (Sword, or any Weapon subclass)
-		if child is Weapon:
-			# Only swing if it has a swing_sword method (optional safety check)
-			if child.has_method("swing_sword"):
-				var random_angle = randi() % 360  # Random angle between 0 and 359 degrees
-				child.swing_sword(random_angle)
-				
+		if child is SwingWeapon:
+			child.internal_cooldown += delta
+			if child.internal_cooldown > child.cooldown and !child.inswing:
+				var angle_to_enemy = get_nearest_enemy()
+				child.internal_cooldown = 0.0
+				child.swing_sword(angle_to_enemy)
 				
 var player_speed = 300;
+
+func get_nearest_enemy():
+	var used_angle = null
+	var current_closest = null
+	
+	for child in get_tree().root.get_child(0).get_children():
+		
+		if child.name == "tweaker" and (current_closest == null || (self.position - child.position).length() < current_closest.length()):
+			used_angle = rad_to_deg(self.position.angle_to_point(child.position))+90
+			
+			current_closest = self.position - child.position
+			
+	return used_angle
 
 func die():
 	print("PLAYER DEAD")

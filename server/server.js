@@ -40,6 +40,7 @@ const SCHEMAS = {
         rarity: { type: Type.STRING },
         swingSpeed: {type: Type.NUMBER},
         slashAngle: {type: Type.INTEGER},
+        cooldown: {type: Type.NUMBER},
         damage: { type: Type.INTEGER},
         scaleFactor: {type: Type.NUMBER}
       },
@@ -49,6 +50,7 @@ const SCHEMAS = {
         "rarity",
         "swingSpeed",
         "slashAngle",
+        "cooldown",
         "scaleFactor",
         "damage"
       ]
