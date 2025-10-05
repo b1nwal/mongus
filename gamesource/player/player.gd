@@ -1,4 +1,4 @@
-extends "res://scripts/entity.gd"
+extends Entity
 
 @export var swing_test_key: Key = Key.KEY_Q
 var between: float = 0.0

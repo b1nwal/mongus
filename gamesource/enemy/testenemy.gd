@@ -1,4 +1,4 @@
-extends "res://scripts/entity.gd"
+extends Entity
 
 var damage = 20
 var target
