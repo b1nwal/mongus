@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://snxuxiulcv8a"]
+[gd_scene load_steps=14 format=3 uid="uid://snxuxiulcv8a"]
 
 [ext_resource type="Script" uid="uid://ev5sev1i56cp" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://doyditic2y2vm" path="res://player/player.tscn" id="2_0xm2m"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://42wa0f5vqml" path="res://scripts/ormm_crafting.gd" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://db5dbbil4mlxi" path="res://ui/levelup_popup.tscn" id="9_levelup_popup"]
 [ext_resource type="PackedScene" uid="uid://byx2mvsjdc5a5" path="res://ui/crafting_popup.tscn" id="10_crafting_popup"]
+[ext_resource type="PackedScene" uid="uid://i6m8kh0gpg1i" path="res://ui/itemgetpopup.tscn" id="13_ycdy4"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
@@ -94,7 +95,11 @@ offset_top = 16.0
 offset_bottom = 16.0
 scale = Vector2(0.3, 0.3)
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[node name="ItemGetPopUp" parent="SBPlayer" instance=ExtResource("13_ycdy4")]
+offset_left = -36.0
+offset_top = 50.0
+offset_right = -36.0
+offset_bottom = 50.0
+scale = Vector2(0.2, 0.2)
 
-[node name="Ormm" type="Node" parent="."]
-script = ExtResource("8_5vw27")
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
