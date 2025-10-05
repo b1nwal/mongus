@@ -3,6 +3,8 @@ extends Control
 @onready var image_display: TextureRect = $PopupContainer/MainBox/ImageContainer/ImageDisplay
 @onready var text_input: LineEdit = $PopupContainer/MainBox/TextInputContainer/TextInput
 @onready var submit_button: Button = $PopupContainer/MainBox/TextInputContainer/SubmitButton
+@onready var crafting_button: Button = get_node("/root/Main/SBPlayer/inGameUI/buttonContainer/craftingButton")
+
 
 signal popup_closed(message: String)
 
@@ -16,6 +18,8 @@ func _ready():
 	# Set process mode for input elements to always process
 	text_input.process_mode = Node.PROCESS_MODE_ALWAYS
 	submit_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	crafting_button.process_mode = Node.PROCESS_MODE_DISABLED
+
 	
 	# Initially hide the popup
 	visible = false
@@ -28,6 +32,8 @@ func show_popup():
 	# Pause the game but keep this popup unpaused
 	get_tree().paused = true
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	crafting_button.process_mode = Node.PROCESS_MODE_DISABLED
+
 	
 	# Focus the text input
 	text_input.grab_focus()
@@ -40,6 +46,7 @@ func hide_popup():
 	
 	# Reset process mode to normal
 	process_mode = Node.PROCESS_MODE_INHERIT
+	crafting_button.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	# Resume the game
 	get_tree().paused = false

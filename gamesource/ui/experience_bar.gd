@@ -7,6 +7,7 @@ extends Control
 var current_exp: int = 0
 var current_level: int = 1
 var exp_to_next_level: int = 100
+var total_experience_gained: int = 0  # Total experience gained over the playthrough
 
 # Signal for level up events
 signal level_up(new_level: int)
@@ -22,8 +23,12 @@ func _ready():
 func add_experience(amount: int):
 	"""Add experience points to the player"""
 	current_exp += amount
+	total_experience_gained += amount  # Track total experience gained
 	check_level_up()
 	update_ui()
+	
+	# Save to global data manager
+	save_total_experience()
 
 func check_level_up():
 	"""Check if the player should level up"""
@@ -71,3 +76,13 @@ func get_current_level() -> int:
 func get_exp_to_next_level() -> int:
 	"""Get the experience required for the next level"""
 	return exp_to_next_level
+
+func get_total_experience_gained() -> int:
+	"""Get the total experience gained over the playthrough"""
+	return total_experience_gained
+
+func save_total_experience():
+	"""Save total experience to global data manager"""
+	var global_data = get_node("/root/GlobalData")
+	if global_data:
+		global_data.set_total_experience(total_experience_gained)
