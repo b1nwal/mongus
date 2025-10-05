@@ -1,8 +1,6 @@
 extends CharacterBody2D
 class_name Entity
 
-class_name Entity
-
 var health = 100
 var alive = true
 var speed = 100

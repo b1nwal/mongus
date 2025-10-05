@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c28qrbiwnt8ih"
-path="res://.godot/imported/tweaker3R.png-cf7825f18e2596a0c9a693e616e08c72.ctex"
+uid="uid://coiheor0c5av0"
+path="res://.godot/imported/SB-1R.png-953eef92d7590422201f4af8a19ebbb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/tweaker/tweaker3R.png"
-dest_files=["res://.godot/imported/tweaker3R.png-cf7825f18e2596a0c9a693e616e08c72.ctex"]
+source_file="res://assets/player/SB-1R.png"
+dest_files=["res://.godot/imported/SB-1R.png-953eef92d7590422201f4af8a19ebbb0.ctex"]
 
 [params]
 

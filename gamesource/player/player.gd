@@ -6,6 +6,8 @@ var between: float = 0.0
 @onready var inv_ui = $InventoryUI
 var inventory = Inventory.new()
 
+@onready var animated_sprite = $AnimatedSprite
+
 func add_weapon(data: Dictionary) -> void:
 	# Decode Base64 into raw bytes
 	var base64_string: String = data["image"]
@@ -23,6 +25,7 @@ func add_weapon(data: Dictionary) -> void:
 	
 	var swing_weapon = SwingWeapon.new()
 	swing_weapon.weapon_info = {"name": data["name"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"]}
+	add_child(swing_weapon)
 	inventory.add_item(swing_weapon)
 	inv_ui.update_ui()
 	# Increment image counter
@@ -89,6 +92,14 @@ func _physics_process(delta):
 		movement.y += player_speed * delta
 	elif pdown:
 		movement.y -= player_speed * delta
+	
+	if (movement.x > 0):
+		animated_sprite.play("walk_left")
+	if (movement.x < 0):
+		animated_sprite.play("walk_right")
+	
+	if (movement == Vector2(0,0)):
+		animated_sprite.play("idle")
 	
 	move_and_collide(-movement)
 

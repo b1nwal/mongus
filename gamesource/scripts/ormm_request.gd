@@ -3,9 +3,10 @@ extends Node
 @onready var gemini := GeminiClient.new()
 @onready var SBPlayer = get_node("/root/Main/SBPlayer")
 
-func request(r: String):
+func _ready():
 	add_child(gemini)
 	gemini.request_completed.connect(_on_ai_response)
+func request(r: String):
 	gemini.send_template("weapon", r, "common")
 	
 func _on_ai_response(success: bool, data, cached: bool):

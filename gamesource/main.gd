@@ -8,47 +8,36 @@ var TweakerScene = preload("res://enemy/tweaker.tscn")
 @onready var health_bar = $SBPlayer/HealthBar
 @onready var ormm_request = $OrmmRequest
 
-@onready var levelup_popup = $LevelUpPopup
-@onready var crafting_popup = $CraftingPopup
+@onready var levelup_popup = $SBPlayer/LevelUpPopup
+@onready var crafting_popup = $SBPlayer/CraftingPopup
 @onready var in_game_ui = $SBPlayer/inGameUI
 
 func _ready():
 	add_child(gemini)
-	gemini.request_completed.connect(_on_ai_response)
-
-	# Using a template:
-	gemini.send_template("weapon", "lesser tribal dagger", "trash")
-	gemini.send_template("weapon", "common dagger", "trash")
 	
-	
-	gemini.send_typed_prompt("merge", 
-	JSON.stringify({"id1": ("weapon:"+ gemini.PROMPT_TEMPLATES["weapon"].call("lesser tribal dagger", "trash")).md5_text(), 
-	"id2": ("weapon:"+ gemini.PROMPT_TEMPLATES["weapon"].call("common dagger", "trash")).md5_text()}))
-	
-	
-	ormm_request.request("octopus blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("water blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("jogging blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("music blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("heat blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("dog blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("fog blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("green blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("red blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("blood blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("glue blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("gun blade")
+	#ormm_request.request("octopus blade")
+	#await get_tree().create_timer(1.0).timeout
+	#ormm_request.request("water blade")
+	#await get_tree().create_timer(1.0).timeout
+	#ormm_request.request("jogging blade")
+	#await get_tree().create_timer(1.0).timeout
+	#ormm_request.request("music blade")
+	#await get_tree().create_timer(1.0).timeout
+	#ormm_request.request("heat blade")
+	#await get_tree().create_timer(1.0).timeout
+	#ormm_request.request("dog blade")
+	#await get_tree().create_timer(1.0).timeout
+	#ormm_request.request("fog blade")
+	#await get_tree().create_timer(1.0).timeout
+	#ormm_request.request("green blade")
+	#await get_tree().create_timer(1.0).timeout
+	#ormm_request.request("red blade")
+	#await get_tree().create_timer(1.0).timeout
+	#ormm_request.request("blood blade")
+	#await get_tree().create_timer(1.0).timeout
+	#ormm_request.request("glue blade")
+	#await get_tree().create_timer(1.0).timeout
+	#ormm_request.request("gun blade")
 	spawn_enemy()
 	
 	# Connect level up signal
@@ -75,11 +64,7 @@ func _on_level_up(new_level: int):
 	# For now, we'll use a default texture or leave it empty
 	# levelup_popup.set_image(your_texture_here)
 	
-	# Create a Texture2D from the Image
-	var image_texture = ImageTexture.create_from_image(img)
-	
-	var swing_weapon = SwingWeapon.new()
-	swing_weapon.weapon_info = {"name": data["name"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"], "cooldown": data["cooldown"]}
+	# Create a Texture2D from the Imagea
 	# Show the popup
 	levelup_popup.show_popup()
 

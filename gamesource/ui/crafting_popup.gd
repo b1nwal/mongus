@@ -1,8 +1,8 @@
 extends Control
 
 @onready var image_display1: TextureRect = $VBoxContainer/ImageContainer1/ImageDisplay1
-@onready var image_display2: TextureRect = $VBoxContainer/ImageContainer2/ImageDisplay2
-@onready var image_display3: TextureRect = $VBoxContainer/ImageContainer3/ImageDisplay3
+@onready var image_display2: TextureRect = $ImageContainer2/ImageDisplay2
+@onready var image_display3: TextureRect = $ImageContainer3/ImageDisplay3
 @onready var submit_button: Button = $VBoxContainer/TextInputContainer/SubmitButton
 @onready var crafting_button: Button = get_node("/root/Main/SBPlayer/inGameUI/buttonContainer/craftingButton")
 
@@ -15,7 +15,7 @@ var drag_offset: Vector2 = Vector2.ZERO
 
 func _ready():
 	# Connect signals
-	submit_button.pressed.connect(_on_submit_pressed)
+	#submit_button.pressed.connect(_on_submit_pressed)
 	
 	# Set process mode for input elements to always process
 	submit_button.process_mode = Node.PROCESS_MODE_ALWAYS

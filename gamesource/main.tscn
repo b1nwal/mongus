@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://snxuxiulcv8a"]
+[gd_scene load_steps=13 format=3 uid="uid://snxuxiulcv8a"]
 
 [ext_resource type="Script" uid="uid://ev5sev1i56cp" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://doyditic2y2vm" path="res://player/player.tscn" id="2_0xm2m"]
@@ -79,22 +79,21 @@ offset_bottom = -64.0
 grow_horizontal = 1
 scale = Vector2(0.3, 0.3)
 
+[node name="LevelUpPopup" parent="SBPlayer" instance=ExtResource("9_levelup_popup")]
+z_index = 4
+offset_top = 16.0
+offset_bottom = 16.0
+scale = Vector2(0.3, 0.3)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CraftingPopup" parent="SBPlayer" instance=ExtResource("10_crafting_popup")]
+z_index = 1
+offset_top = 16.0
+offset_bottom = 16.0
+scale = Vector2(0.3, 0.3)
+
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="Ormm" type="Node" parent="."]
 script = ExtResource("8_5vw27")
-
-[node name="LevelUpPopup" parent="." instance=ExtResource("9_levelup_popup")]
-z_index = 4
-offset_left = -3.0
-offset_top = 1.0
-offset_right = -3.0
-offset_bottom = 1.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="CraftingPopup" parent="." instance=ExtResource("10_crafting_popup")]
-offset_left = 316.0
-offset_top = 10.0
-offset_right = 316.0
-offset_bottom = 10.0
