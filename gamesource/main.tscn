@@ -1,8 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://snxuxiulcv8a"]
+[gd_scene load_steps=4 format=3 uid="uid://snxuxiulcv8a"]
 
 [ext_resource type="Script" uid="uid://ev5sev1i56cp" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://doyditic2y2vm" path="res://player/player.tscn" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://bsf8kv23ac27s" path="res://assets/bg_tileset/islandmap.png" id="3_h2yge"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
+
+[node name="WorldNode" type="Node2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Background" type="Sprite2D" parent="WorldNode"]
+z_index = -1
+texture = ExtResource("3_h2yge")
+
+[node name="SBPlayer" parent="." instance=ExtResource("2_0xm2m")]
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
