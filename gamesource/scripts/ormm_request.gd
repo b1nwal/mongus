@@ -6,12 +6,10 @@ func _ready():
 	add_child(gemini)
 	gemini.request_completed.connect(_on_ai_response)
 	gemini.send_template("weapon", "ice blade", "common")
-	gemini.send_template("weapon", "ice blade", "rare")
-	gemini.send_template("weapon", "ice blade", "legendary")
 	
-func _on_ai_response(success: bool, data):
+func _on_ai_response(success: bool, data, cached: bool):
 	if success:
-		print("AI Response:", data)
+		add_weapon(data)
 	else:
 		print("Error:", data)
 	
