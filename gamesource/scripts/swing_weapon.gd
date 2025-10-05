@@ -25,7 +25,6 @@ func _ready():
 	already_hit = []
 	
 	
-	
 	modulate.a = 0.0
 	
 	scale = default_scale
@@ -35,8 +34,6 @@ func _ready():
 	offset = default_offset
 	swing_speed = weapon_info.get("swing_speed", swing_speed)
 	slash_angle = weapon_info.get("slash_angle", slash_angle)
-	
-	#swing_trail.color_ramp = preload("res://effects/swing_trail_ramp.tres")
 	
 	add_child(create_hitbox_from_image(texture.get_image()))
 	
@@ -72,24 +69,18 @@ func swing_sword(direction_given: float):
 			hitbox = child
 	  # enable detection
 	hitbox.monitoring = true
-
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_QUAD)
-	tween.tween_property(self, "rotation_degrees", start_angle + slash_angle, 0.7).set_delay((1.0 / swing_speed) / 6.0)
-
-	# When the tween finishes, disable the hitbox again
-	tween.finished.connect(func():
-		hitbox.monitoring = false
-	)
-
+	tween.tween_property(self, "rotation_degrees", start_angle + slash_angle, 0.7).set_delay((1.0 / swing_speed) / 6.0).connect("finished", Callable(hitbox, "set_monitoring"), false)
+	
 	
 	var tween2 = create_tween()
 	tween2.set_trans(Tween.TRANS_LINEAR)
 	tween2.set_ease(Tween.EASE_OUT)
 	tween2.tween_property(self, "modulate:a", 0.0,  (1/swing_speed)/6).set_delay(0.7+(1/swing_speed)/6)
-	tween2.finished.connect(func():
-		inswing = false)
+	
+	inswing = false
 	
 	
 	
@@ -135,4 +126,5 @@ func create_hitbox_from_image(image: Image) -> Area2D:
 	
 	return area
 func _on_hitbox_body_entered(body: Node2D):
+	print(damage)
 	body.incur(damage)

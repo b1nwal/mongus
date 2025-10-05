@@ -55,39 +55,6 @@ const SCHEMAS = {
         "damage"
       ]
     } 
-  },
-  ranged: {
-    type: Type.ARRAY,
-    items: {
-      type: Type.OBJECT,
-      properties: {
-        name: { type: Type.STRING },
-        description: { type: Type.STRING },
-        projectileDescription: {type: Type.STRING},
-        rarity: { type: Type.STRING },
-        drawSpeed: {type: Type.NUMBER},
-        pierce: {type: Type.INTEGER},
-        cooldown: {type: Type.NUMBER},
-        scaleFactor: {type: Type.NUMBER},
-        damage: { type: Type.INTEGER},
-        range: { type: Type.INTEGER},
-        speed: { type: Type.NUMBER}
-      },
-      required: [
-        "name",
-        "description",
-        "projectileDescription",
-        "rarity",
-        "drawSpeed",
-        "pierce",
-        "cooldown",
-        "scaleFactor",
-        "damage",
-        "range",
-        "speed"
-      ]
-      
-    } 
   }
 };
 
@@ -163,7 +130,7 @@ app.post("/generate", async (req, res) => {
       if (cached) {
         console.log("Cache hit for type:", type);
         return res.json({ success: true, data: cached, cached: true });
-      } 
+      }
 
       
      
@@ -204,52 +171,6 @@ app.post("/generate", async (req, res) => {
 
       data["image"] = base64Image
       // Save to cache
-      await saveCachedResponse(hash, data);
-
-      res.json({ success: true, data, cached: false });
-
-    } else if (type == "ranged") {
-      if (!payload) return res.status(400).json({ success: false, error: "No payload provided" });
-      if (!SCHEMAS[type]) return res.status(400).json({ success: false, error: "Unknown type" });
-
-      const hash = md5(type + ":" + payload);
-
-      // Check cache first
-      const cached = await getCachedResponse(hash);
-      if (cached) {
-        console.log("Cache hit for type:", type);
-        return res.json({ success: true, data: cached, cached: true });
-      }
-      
-
-
-
-      const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
-        contents: payload,
-        config: {
-          responseMimeType: "application/json",
-          responseSchema: SCHEMAS["ranged"]
-        }
-      });
-
-      const data = JSON.parse(response.text)[0];
-
-      const base64ImageRanged = await generateSingleImage(
-        data["name"],
-        data["description"],
-        "ranged (bow or magical staff). If a staff, it's vertical. In the case of a bow, it MUST be horizontal and facing to the left."
-      );
-
-      const base64ImageProjectile = await generateSingleImage(
-        data["name"] + "'s Projectile",
-        data["projectileDescription"],
-        "projectile (arrow or magical spell)"
-      );
-
-      data["image"] = base64ImageRanged
-      data["projectileImage"] = base64ImageProjectile
-      
       await saveCachedResponse(hash, data);
 
       res.json({ success: true, data, cached: false });

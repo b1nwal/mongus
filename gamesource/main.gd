@@ -15,33 +15,29 @@ var TweakerScene = preload("res://enemy/tweaker.tscn")
 func _ready():
 	add_child(gemini)
 	
-	ormm_request.request("starter bow")
+	ormm_request.request("octopus blade")
 	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("starter staff")
+	ormm_request.request("water blade")
 	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("assassins bow")
+	ormm_request.request("jogging blade")
 	await get_tree().create_timer(1.0).timeout
-	#ormm_request.request("water blade")
-	#await get_tree().create_timer(1.0).timeout
-	#ormm_request.request("jogging blade")
-	#await get_tree().create_timer(1.0).timeout
-	#ormm_request.request("music blade")
-	#await get_tree().create_timer(1.0).timeout
-	#ormm_request.request("heat blade")
-	#await get_tree().create_timer(1.0).timeout
-	#ormm_request.request("dog blade")
-	#await get_tree().create_timer(1.0).timeout
-	#ormm_request.request("fog blade")
-	#await get_tree().create_timer(1.0).timeout
-	#ormm_request.request("green blade")
-	#await get_tree().create_timer(1.0).timeout
-	#ormm_request.request("red blade")
-	#await get_tree().create_timer(1.0).timeout
-	#ormm_request.request("blood blade")
-	#await get_tree().create_timer(1.0).timeout
-	#ormm_request.request("glue blade")
-	#await get_tree().create_timer(1.0).timeout
-	#ormm_request.request("gun blade")
+	ormm_request.request("music blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("heat blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("dog blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("fog blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("green blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("red blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("blood blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("glue blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("gun blade")
 	spawn_enemy()
 	
 	# Connect level up signal
@@ -85,6 +81,7 @@ func _on_crafting_button_pressed():
 	crafting_popup.toggle_popup()
 
 func _physics_process(delta):
+	
 	# Test experience system - press E to add 10 exp, press R to add 50 exp
 	if Input.is_action_just_pressed("add_exp_small"):  # E key
 		experience_bar.add_experience(10)

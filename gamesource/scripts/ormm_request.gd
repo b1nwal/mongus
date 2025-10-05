@@ -2,7 +2,6 @@ extends Node
 
 @onready var gemini := GeminiClient.new()
 @onready var SBPlayer = get_node("/root/Main/SBPlayer")
-var weaponType: String = "ranged"
 
 func _ready():
 	add_child(gemini)
@@ -10,13 +9,12 @@ func _ready():
 	get_node("/root/Main/SBPlayer/LevelUpPopup").popup_closed.connect(request)
 	
 func request(r: String):
-	print(weaponType, r, "common")
-	gemini.send_template(weaponType, r, "common")
-	
+	print("sent a request")
+	gemini.send_template("weapon", r, "common")
 	
 func _on_ai_response(success: bool, data, cached: bool):
 	if success:
-		SBPlayer.add_weapon(weaponType, data)
+		SBPlayer.add_weapon(data)
 	else:
 		print("Error:", data)
 	
