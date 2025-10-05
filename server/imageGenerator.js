@@ -9,10 +9,10 @@ dotenv.config();
 const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY});
 
 
-export async function generateSingleImage(name, description) {
+export async function generateSingleImage(name, description, optional="melee weapon") {
   try {
     // 1️⃣ Generate the image with Gemini
-    const prompt = `Create a pixel art image of a weapon:
+    const prompt = `Create a pixel art image of a ${optional}:
 Name: ${name}
 Description: ${description}
 Format: PNG, 512x512, square, make the weapon point DIRECTLY up, that is the hilt is on the bottom, DO NOT HAVE IT UPSIDE DOWN.
@@ -47,6 +47,8 @@ No text or watermark.`;
   }
     
 }
+
+
 
 /**
  * Converts an image buffer to a 256x256 icon with a transparent background.
@@ -110,7 +112,7 @@ export async function generateCombinedImage(name, description, image1, image2) {
         const newImage = combineBase64Images({image1, image2})
         // 1️⃣ Generate the image with Gemini
     
-        const prompt = [{ text: `Create a pixel art image of a weapon:
+        const prompt = [{ text: `Create a pixel art image of a melee:
             Name: ${name}
             Description: ${description}
             Note: Combine the two weapons in the given image into one new form fitting the name and description. These two seperate swords should become one new whole.

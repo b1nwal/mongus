@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btp5k3avs4lq0"
-path="res://.godot/imported/brightness-off-icon.png-4a1774a48ee5a0d17ffb12663878cdd1.ctex"
+uid="uid://b0ylpdfe0mwff"
+path="res://.godot/imported/pixel_particle.png-73184601c3c70ef8fdd1f208fd871e9b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprout Lands - UI Pack - Basic pack/custom sprites/brightness-off-icon.png"
-dest_files=["res://.godot/imported/brightness-off-icon.png-4a1774a48ee5a0d17ffb12663878cdd1.ctex"]
+source_file="res://assets/vfx/pixel_particle.png"
+dest_files=["res://.godot/imported/pixel_particle.png-73184601c3c70ef8fdd1f208fd871e9b.ctex"]
 
 [params]
 
