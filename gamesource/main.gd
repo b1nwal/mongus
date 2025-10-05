@@ -7,24 +7,25 @@ func _ready():
 	gemini.request_completed.connect(_on_ai_response)
 
 	# Using a template:
-	gemini.send_template("weapon", "wise mystical tree")
-	
+	gemini.send_template("weapon", "rusty sword", "common")
+	gemini.send_template("weapon", "old dagger", "common")
+	gemini.send_template("weapon", "stone slab blade", "common")
+
+
+				
 	
 	
 
 func _on_ai_response(success: bool, data, cached: bool):
 	if success:
-		print("AI Response (cached=%s): %s" % [cached])
-		add_base64_image(data["image"])
-		print("fwaa")
+		add_weapon(data)
 	else:
 		print("Error:", data)
-
-var image_count := 0
 const IMAGE_SIZE := Vector2(256, 256)
 
-func add_base64_image(base64_string: String) -> void:
+func add_weapon(data: Dictionary) -> void:
 	# Decode Base64 into raw bytes
+	var base64_string: String = data["image"]
 	var raw_image_data = Marshalls.base64_to_raw(base64_string)
 	
 	# Load bytes into an Image
@@ -37,16 +38,10 @@ func add_base64_image(base64_string: String) -> void:
 	# Create a Texture2D from the Image
 	var image_texture = ImageTexture.create_from_image(img)
 	
-	# Create a Sprite2D and assign the texture
-	var sprite = Sprite2D.new()
-	sprite.texture = image_texture
-	
-	# Position it based on the number of images added (tiling horizontally)
-	
-	sprite.position = Vector2(IMAGE_SIZE.x * image_count+100, 150)
+	var swing_weapon = SwingWeapon.new()
+	swing_weapon.weapon_info = {"name": data["name"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"]}
 
 	# Add the sprite as a child
-	add_child(sprite)
+	$SBPlayer.add_child(swing_weapon)
 	
 	# Increment image counter
-	image_count += 1

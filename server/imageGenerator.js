@@ -14,8 +14,8 @@ export async function generateWeaponImage(name, description, bgColor = "#FF00FF"
     const prompt = `Create a pixel art image of a weapon:
 Name: ${name}
 Description: ${description}
-Format: PNG, 512x512, square, make the weapon point DIRECTLY up
-Background color: use this exact color without any gradients or changes. It must be EXACTLY this hexcode for future use. Absolutely no borders.
+Format: PNG, 512x512, square, make the weapon point DIRECTLY up, that is the hilt is on the bottom, DO NOT HAVE IT UPSIDE DOWN.
+Background color: use a color that isnt used in the weapon. must be a flat color. NO GRADIENT, NO BORDERS. ONLY PURE ONE COLOR.
 No text or watermark.`;
 
 
