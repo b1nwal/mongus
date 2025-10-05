@@ -67,16 +67,6 @@ func add_base64_image(base64_string: String) -> void:
 	image_count += 1
 
 func _physics_process(delta):
-	var movement = Vector2.ZERO
-	if Input.is_action_pressed("ui_right"):
-		movement.x -= player_speed * delta
-	if Input.is_action_pressed("ui_left"):
-		movement.x += player_speed * delta
-	if Input.is_action_pressed("ui_down"):
-		movement.y -= player_speed * delta
-	if Input.is_action_pressed("ui_up"):
-		movement.y += player_speed * delta
-	worldnode.position += movement
 	
 	# Test experience system - press E to add 10 exp, press R to add 50 exp
 	if Input.is_action_just_pressed("add_exp_small"):  # E key
