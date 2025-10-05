@@ -5,9 +5,14 @@ extends Control
 @onready var image_display3: TextureRect = $ImageContainer3/ImageDisplay3
 @onready var submit_button: Button = $VBoxContainer/TextInputContainer/SubmitButton
 @onready var crafting_button: Button = get_node("/root/Main/SBPlayer/inGameUI/buttonContainer/craftingButton")
+@onready var inventory_list = get_node("/root/Main/SBPlayer/InventoryUI")
 
 signal popup_closed
 
+signal submit_craft(w1: Weapon, w2: Weapon)
+
+var boxes_populated = 0
+var box_content = []
 var is_active: bool = false
 var selected_container: Panel = null
 var is_dragging: bool = false
@@ -16,12 +21,28 @@ var drag_offset: Vector2 = Vector2.ZERO
 func _ready():
 	# Connect signals
 	#submit_button.pressed.connect(_on_submit_pressed)
-	
+	inventory_list.click_item.connect(populate_boxes)
 	# Set process mode for input elements to always process
 	submit_button.process_mode = Node.PROCESS_MODE_ALWAYS
 	crafting_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	inventory_list.process_mode = Node.PROCESS_MODE_ALWAYS
 	# Initially hide the popup
 	visible = false
+func populate_boxes(w: Weapon):
+	if boxes_populated < 2:
+		boxes_populated += 1
+	else:
+		return
+	if boxes_populated > 0:
+		box_content.append(w)
+		var c = box_content[boxes_populated-1].weapon_info.texture
+		[$ImageContainer2/ImageDisplay2,$ImageContainer3/ImageDisplay3][boxes_populated-1].texture = c
+
+func clear_boxes():
+	boxes_populated = 0
+	box_content = []
+	$ImageContainer2/ImageDisplay2.texture = null
+	$ImageContainer3/ImageDisplay3.texture = null
 
 func show_popup():
 	"""Show the crafting popup and pause the game"""
@@ -37,6 +58,7 @@ func show_popup():
 
 func hide_popup():
 	"""Hide the popup and resume the game"""
+	clear_boxes()
 	is_active = false
 	visible = false
 	
@@ -69,4 +91,7 @@ func _input(event):
 
 func _on_submit_pressed():
 	"""Handle submit button press"""
+	if boxes_populated == 2:
+		submit_craft.emit(box_content[0], box_content[1])
+	
 	hide_popup()

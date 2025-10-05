@@ -69,6 +69,7 @@ func _on_request_completed(result, response_code, headers, body, http: HTTPReque
 			success = true
 			cached = "cached" in response_data and response_data.cached
 			response_data = response_data.data
+			response_data["prompt"] = http
 		else:
 			response_data = response_data.error
 	else:
