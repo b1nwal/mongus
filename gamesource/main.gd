@@ -25,6 +25,9 @@ var player_speed = 400;
 
 func _physics_process(delta):
 	var movement = Vector2.ZERO
+	if Input.is_action_pressed("ui_right") and Input.is_action_pressed("ui_up"):
+		movement.x -= player_speed / 1.4 * delta
+		movement.y += player_speed / 1.4 * delta
 	if Input.is_action_pressed("ui_right"):
 		movement.x -= player_speed * delta
 	if Input.is_action_pressed("ui_left"):
@@ -33,4 +36,9 @@ func _physics_process(delta):
 		movement.y -= player_speed * delta
 	if Input.is_action_pressed("ui_up"):
 		movement.y += player_speed * delta
+	#if movement:
+		#movement.normalize()
+	#else:
+		#Vector2.ZERO
+	#
 	worldnode.position += movement
