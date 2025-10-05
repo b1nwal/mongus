@@ -15,7 +15,9 @@ func tick_weapons(delta):
 			if child.internal_cooldown > child.cooldown and !child.inswing:
 				var angle_to_enemy = get_nearest_enemy()
 				child.internal_cooldown = 0.0
-				child.swing_sword(angle_to_enemy)
+				
+				if (angle_to_enemy != null):
+					child.swing_sword(angle_to_enemy)
 				
 var player_speed = 300;
 

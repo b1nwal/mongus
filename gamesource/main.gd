@@ -12,9 +12,25 @@ func _ready():
 	gemini.request_completed.connect(_on_ai_response)
 
 	# Using a template:
-	gemini.send_template("weapon", "ice sword", "trash")
-	gemini.send_template("weapon", "ice sword", "rare")
-	spawn_enemy()
+	gemini.send_template("weapon", "a literal pirate", "rare")
+	gemini.send_template("weapon", "fire alarm", "common")
+	gemini.send_template("weapon", "quasar", "mythic")
+	
+	
+	
+	
+
+var darp: float = 0.0
+func _process(delta):
+	darp += delta
+	if (darp >= 3.0):
+		spawn_enemy()
+		spawn_enemy()
+		spawn_enemy()
+		spawn_enemy()
+		spawn_enemy()
+		darp = 0.0
+	
 	
 func spawn_enemy():
 	for i in 1:
