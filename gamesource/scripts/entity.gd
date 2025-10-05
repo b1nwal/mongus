@@ -1,7 +1,8 @@
-extends Node2D
+extends CharacterBody2D
 
 var health = 100
 var alive = true
+var speed = 100
 
 func incur(dmg):
 	health -= dmg

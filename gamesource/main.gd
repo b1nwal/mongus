@@ -15,7 +15,7 @@ func _ready():
 	
 func spawn_enemy():
 	var enemy = EnemyScene.instantiate()
-	enemy.position = Vector2(0,0)
+	enemy.position = Vector2(400,400)
 	enemy.target = $SBPlayer
 	worldnode.add_child(enemy)
 
