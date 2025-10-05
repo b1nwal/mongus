@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @onready var gemini := GeminiClient.new()
 
@@ -6,48 +6,47 @@ func _ready():
 	add_child(gemini)
 	gemini.request_completed.connect(_on_ai_response)
 
-	# Use a prebuilt template
-	gemini.send_template("weapon", "ice sword")
+	# Using a template:
+	gemini.send_template("weapon", "wise mystical tree")
+	
+	
+	
 
-func _on_ai_response(success: bool, data):
+func _on_ai_response(success: bool, data, cached: bool):
 	if success:
-		print("AI Response:", data)
+		print("AI Response (cached=%s): %s" % [cached])
+		add_base64_image(data["image"])
+		print("fwaa")
 	else:
 		print("Error:", data)
+
+var image_count := 0
+const IMAGE_SIZE := Vector2(256, 256)
+
+func add_base64_image(base64_string: String) -> void:
+	# Decode Base64 into raw bytes
+	var raw_image_data = Marshalls.base64_to_raw(base64_string)
 	
-func _on_request_completed(result, response_code, headers, body):
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	print(json["message"])
-
-var player_speed = 400;
-
-@onready var worldnode = $WorldNode
-
-func _physics_process(delta):
-	var movement = Vector2.ZERO
-	var pleft = Input.is_action_pressed("ui_left")
-	var pright = Input.is_action_pressed("ui_right")
-	var pup = Input.is_action_pressed("ui_up")
-	var pdown = Input.is_action_pressed("ui_down")
+	# Load bytes into an Image
+	var img = Image.new()
+	var err = img.load_png_from_buffer(raw_image_data)
+	if err != OK:
+		push_error("Failed to load image from Base64")
+		return
 	
-	if pright and pup:
-		movement.x -= player_speed / 1.4 * delta
-		movement.y += player_speed / 1.4 * delta
-	elif pright and pdown:
-		movement.x -= player_speed / 1.4 * delta
-		movement.y -= player_speed / 1.4 * delta
-	elif pleft and pup:
-		movement.x += player_speed / 1.4 * delta
-		movement.y += player_speed / 1.4 * delta
-	elif pleft and pdown:
-		movement.x += player_speed / 1.4 * delta
-		movement.y -= player_speed / 1.4 * delta
-	elif pleft:
-		movement.x += player_speed * delta
-	elif pright:
-		movement.x -= player_speed * delta
-	elif pup:
-		movement.y += player_speed * delta
-	elif pdown:
-		movement.y -= player_speed * delta
-	worldnode.position += movement
+	# Create a Texture2D from the Image
+	var image_texture = ImageTexture.create_from_image(img)
+	
+	# Create a Sprite2D and assign the texture
+	var sprite = Sprite2D.new()
+	sprite.texture = image_texture
+	
+	# Position it based on the number of images added (tiling horizontally)
+	
+	sprite.position = Vector2(IMAGE_SIZE.x * image_count+100, 150)
+
+	# Add the sprite as a child
+	add_child(sprite)
+	
+	# Increment image counter
+	image_count += 1
