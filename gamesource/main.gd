@@ -11,9 +11,14 @@ func _ready():
 	add_child(gemini)
 	gemini.request_completed.connect(_on_ai_response)
 
-	# Use a prebuilt template
-	gemini.send_template("weapon", "ice sword")
-	spawn_enemy()
+	# Using a template:
+	gemini.send_template("weapon", "rusty sword", "common")
+	gemini.send_template("weapon", "old dagger", "common")
+	gemini.send_template("weapon", "stone slab blade", "common")
+  spawn_enemy()
+
+				
+	
 	
 func spawn_enemy():
 	for i in 1:
@@ -24,9 +29,7 @@ func spawn_enemy():
 
 func _on_ai_response(success: bool, data, cached: bool):
 	if success:
-		print("AI Response (cached=%s): %s" % [cached])
-		add_base64_image(data["image"])
-		print("fwaa")
+		add_weapon(data)
 	else:
 		print("Error:", data)
 	
@@ -37,8 +40,9 @@ func _on_request_completed(result, response_code, headers, body):
 var image_count := 0
 const IMAGE_SIZE := Vector2(256, 256)
 
-func add_base64_image(base64_string: String) -> void:
+func add_weapon(data: Dictionary) -> void:
 	# Decode Base64 into raw bytes
+	var base64_string: String = data["image"]
 	var raw_image_data = Marshalls.base64_to_raw(base64_string)
 	
 	# Load bytes into an Image
@@ -51,38 +55,10 @@ func add_base64_image(base64_string: String) -> void:
 	# Create a Texture2D from the Image
 	var image_texture = ImageTexture.create_from_image(img)
 	
-	# Create a Sprite2D and assign the texture
-	var sprite = Sprite2D.new()
-	sprite.texture = image_texture
-	
-	# Position it based on the number of images added (tiling horizontally)
-	
-	sprite.position = Vector2(IMAGE_SIZE.x * image_count+100, 150)
+	var swing_weapon = SwingWeapon.new()
+	swing_weapon.weapon_info = {"name": data["name"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"]}
 
 	# Add the sprite as a child
-	add_child(sprite)
+	$SBPlayer.add_child(swing_weapon)
 	
 	# Increment image counter
-	image_count += 1
-
-func _physics_process(delta):
-	
-	# Test experience system - press E to add 10 exp, press R to add 50 exp
-	if Input.is_action_just_pressed("add_exp_small"):  # E key
-		experience_bar.add_experience(10)
-		print("Added 10 experience!")
-	if Input.is_action_just_pressed("add_exp_large"):  # R key
-		experience_bar.add_experience(50)
-		print("Added 50 experience!")
-	
-	# Test health system - press T for small damage, Y for large damage, U to heal
-	#if Input.is_action_just_pressed("damage_small"):  # T key
-		#health_bar.take_damage(10)
-		#print("Took 10 damage! Health: ", health_bar.get_current_health())
-	#if Input.is_action_just_pressed("damage_large"):  # Y key
-		#health_bar.take_damage(25)
-		#print("Took 25 damage! Health: ", health_bar.get_current_health())
-	#if Input.is_action_just_pressed("heal_player"):  # U key
-#u		health_bar.heal(20)
-		#print("Healed 20 health! Health: ", health_bar.get_current_health())
-		
