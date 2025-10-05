@@ -47,14 +47,11 @@ func _ready():
 	# Connect level up signal
 	experience_bar.level_up.connect(_on_level_up)
 	
-	# Connect popup closed signal
-	levelup_popup.popup_closed.connect(_on_levelup_message_submitted)
-	
 	# Connect crafting button
 	connect_crafting_button()
 	
 func spawn_enemy():
-	for i in 10:
+	for i in 1:
 		var tweaker = TweakerScene.instantiate()
 		tweaker.position = Vector2(randi_range(-600,600),randi_range(-600,600))
 		tweaker.target = $SBPlayer
@@ -71,11 +68,6 @@ func _on_level_up(new_level: int):
 	# Create a Texture2D from the Imagea
 	# Show the popup
 	levelup_popup.show_popup()
-
-func _on_levelup_message_submitted(message: String):
-	"""Handle when user submits their level-up message"""
-	print("Player's level-up message: ", message)
-	# You can save this message, display it, or do whatever you want with it
 
 func connect_crafting_button():
 	"""Connect the crafting button to toggle the crafting popup"""

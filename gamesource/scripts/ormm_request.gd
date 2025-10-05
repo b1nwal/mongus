@@ -7,6 +7,8 @@ var weaponType: String = "ranged"
 func _ready():
 	add_child(gemini)
 	gemini.request_completed.connect(_on_ai_response)
+	get_node("/root/Main/SBPlayer/LevelUpPopup").popup_closed.connect(request)
+	
 func request(r: String):
 	print(weaponType, r, "common")
 	gemini.send_template(weaponType, r, "common")

@@ -73,6 +73,23 @@ func add_weapon(type: String, data: Dictionary) -> void:
 		add_child(ranged_weapon)
 		inventory.add_item(ranged_weapon)
 		inv_ui.update_ui()
+	# Load bytes into an Image
+	var img = Image.new()
+	var err = img.load_png_from_buffer(raw_image_data)
+	if err != OK:
+		push_error("Failed to load image from Base64")
+		return
+	
+	# Create a Texture2D from the Image
+	var image_texture = ImageTexture.create_from_image(img)
+	
+	var swing_weapon = SwingWeapon.new()
+	swing_weapon.weapon_info = {"name": data["name"], "description": data["description"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"]}
+	$ItemGetPopUp.update(swing_weapon)
+	add_child(swing_weapon)
+	inventory.add_item(swing_weapon)
+	inv_ui.update_ui()
+	# Increment image counter
 
 func _process(delta):
 	# Check if the swing test key was just pressed
@@ -111,7 +128,18 @@ func get_nearest_enemy():
 
 func die():
 	print("PLAYER DEAD")
-	get_tree().paused = true
+	# Show death screen instead of just pausing
+	show_death_screen()
+
+func show_death_screen():
+	"""Show the death screen popup"""
+	# Find the death screen in the scene
+	var death_screen = get_node("/root/Main/SBPlayer/DeathScreen")
+	if death_screen:
+		death_screen.show_death_screen()
+	else:
+		print("Death screen not found!")
+		get_tree().paused = true
 
 func _physics_process(delta):
 	var movement = Vector2.ZERO

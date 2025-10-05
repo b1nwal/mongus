@@ -27,6 +27,5 @@ func incur(dmg: int):
 
 
 func die():
-	print("i'm dead")
 	alive = false
 	queue_free()
