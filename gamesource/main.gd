@@ -1,6 +1,9 @@
 extends Node
 
+var EnemyScene = preload("res://enemy/testenemy.tscn")
+
 @onready var gemini := GeminiClient.new()
+@onready var worldnode = $WorldNode
 
 func _ready():
 	add_child(gemini)
@@ -8,6 +11,13 @@ func _ready():
 
 	# Use a prebuilt template
 	gemini.send_template("weapon", "ice sword")
+	spawn_enemy()
+	
+func spawn_enemy():
+	var enemy = EnemyScene.instantiate()
+	enemy.position = Vector2(0,0)
+	enemy.target = $SBPlayer
+	worldnode.add_child(enemy)
 
 func _on_ai_response(success: bool, data):
 	if success:
@@ -20,8 +30,6 @@ func _on_request_completed(result, response_code, headers, body):
 	print(json["message"])
 
 var player_speed = 400;
-
-@onready var worldnode = $WorldNode
 
 func _physics_process(delta):
 	var movement = Vector2.ZERO

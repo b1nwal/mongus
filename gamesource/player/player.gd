@@ -1,1 +1,1 @@
-extends Node
+extends "res://scripts/character.gd"
