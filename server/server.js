@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import md5 from "md5";
 import { GoogleGenAI, Type } from "@google/genai";
+import { generateWeaponImage } from "./imageGenerator.js";
 
 dotenv.config();
 
@@ -88,8 +89,13 @@ app.post("/generate", async (req, res) => {
     });
 
     const data = JSON.parse(response.text)[0];
-    console.log(data)
 
+    const base64Image = await generateWeaponImage(
+      data["name"],
+      data["description"]
+    );
+
+    data["image"] = base64Image
     // Save to cache
     await saveCachedResponse(hash, data);
 
@@ -103,4 +109,5 @@ app.post("/generate", async (req, res) => {
 // --- Start server ---
 app.listen(3000, () => {
   console.log("✅ Gemini bridge with typed schema + Firestore cache running on http://localhost:3000");
+  
 });

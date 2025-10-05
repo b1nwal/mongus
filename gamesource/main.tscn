@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://snxuxiulcv8a"]
+[gd_scene load_steps=3 format=3 uid="uid://snxuxiulcv8a"]
 
 [ext_resource type="Script" uid="uid://ev5sev1i56cp" path="res://main.gd" id="1_ig7tw"]
+
+[sub_resource type="GDScript" id="GDScript_ig7tw"]
+script/source = "extends Node2D
+
+# Keeps track of how many images have been added, for tiling
+"
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Node2D" type="Node2D" parent="."]
+script = SubResource("GDScript_ig7tw")
