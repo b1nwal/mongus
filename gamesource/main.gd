@@ -6,9 +6,16 @@ var TweakerScene = preload("res://enemy/tweaker.tscn")
 
 @onready var experience_bar = $SBPlayer/ExperienceBar
 @onready var health_bar = $SBPlayer/HealthBar
+@onready var levelup_popup = $LevelUpPopup
 
 func _ready():
 	spawn_enemy()
+	
+	# Connect level up signal
+	experience_bar.level_up.connect(_on_level_up)
+	
+	# Connect popup closed signal
+	levelup_popup.popup_closed.connect(_on_levelup_message_submitted)
 	
 func spawn_enemy():
 	for i in 1:
@@ -16,3 +23,29 @@ func spawn_enemy():
 		tweaker.position = Vector2(randi_range(-600,600),randi_range(-600,600))
 		tweaker.target = $SBPlayer
 		add_child(tweaker)
+
+func _on_level_up(new_level: int):
+	"""Handle level up event - show popup"""
+	print("Level up to level ", new_level)
+	
+	# You can set a custom image here if you want
+	# For now, we'll use a default texture or leave it empty
+	# levelup_popup.set_image(your_texture_here)
+	
+	# Show the popup
+	levelup_popup.show_popup()
+
+func _on_levelup_message_submitted(message: String):
+	"""Handle when user submits their level-up message"""
+	print("Player's level-up message: ", message)
+	# You can save this message, display it, or do whatever you want with it
+
+func _physics_process(delta):
+	
+	# Test experience system - press E to add 10 exp, press R to add 50 exp
+	if Input.is_action_just_pressed("add_exp_small"):  # E key
+		experience_bar.add_experience(10)
+		print("Added 10 experience!")
+	if Input.is_action_just_pressed("add_exp_large"):  # R key
+		experience_bar.add_experience(50)
+		print("Added 50 experience!")
