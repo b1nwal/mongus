@@ -15,5 +15,6 @@ z_index = -1
 texture = ExtResource("3_h2yge")
 
 [node name="SBPlayer" parent="." instance=ExtResource("2_0xm2m")]
+scale = Vector2(5, 5)
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
