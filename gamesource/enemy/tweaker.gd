@@ -1,6 +1,6 @@
 extends "res://scripts/entity.gd"
 
-var damage = 20
+var damage = 5
 var target
 var target_in_range
 #func _ready():

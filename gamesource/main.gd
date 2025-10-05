@@ -12,7 +12,13 @@ func _ready():
 	gemini.request_completed.connect(_on_ai_response)
 
 	# Using a template:
-	gemini.send_template("weapon", "rusty blade", "common")
+	gemini.send_template("weapon", "lesser tribal dagger", "trash")
+	gemini.send_template("weapon", "common dagger", "trash")
+	
+	
+	gemini.send_typed_prompt("merge", 
+	JSON.stringify({"id1": ("weapon:"+ gemini.PROMPT_TEMPLATES["weapon"].call("lesser tribal dagger", "trash")).md5_text(), 
+	"id2": ("weapon:"+ gemini.PROMPT_TEMPLATES["weapon"].call("common dagger", "trash")).md5_text()}))
 	
 	
 	
