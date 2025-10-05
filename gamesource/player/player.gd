@@ -1,6 +1,6 @@
 extends "res://scripts/entity.gd"
 
-var player_speed = 400;
+var player_speed = 300;
 
 func die():
 	print("PLAYER DEAD")
@@ -35,3 +35,10 @@ func _physics_process(delta):
 		movement.y -= player_speed * delta
 	
 	move_and_collide(-movement)
+
+
+func incur(dmg):
+	health -= dmg
+	if health <= 0:
+		die()
+	$HealthBar.set_health(health)

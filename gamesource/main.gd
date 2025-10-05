@@ -4,8 +4,8 @@ var TweakerScene = preload("res://enemy/tweaker.tscn")
 
 @onready var gemini := GeminiClient.new()
 
-@onready var experience_bar = $ExperienceBar
-@onready var health_bar = $HealthBar
+@onready var experience_bar = $SBPlayer/ExperienceBar
+@onready var health_bar = $SBPlayer/HealthBar
 
 func _ready():
 	add_child(gemini)
@@ -76,13 +76,13 @@ func _physics_process(delta):
 		print("Added 50 experience!")
 	
 	# Test health system - press T for small damage, Y for large damage, U to heal
-	if Input.is_action_just_pressed("damage_small"):  # T key
-		health_bar.take_damage(10)
-		print("Took 10 damage! Health: ", health_bar.get_current_health())
-	if Input.is_action_just_pressed("damage_large"):  # Y key
-		health_bar.take_damage(25)
-		print("Took 25 damage! Health: ", health_bar.get_current_health())
-	if Input.is_action_just_pressed("heal_player"):  # U key
-		health_bar.heal(20)
-		print("Healed 20 health! Health: ", health_bar.get_current_health())
+	#if Input.is_action_just_pressed("damage_small"):  # T key
+		#health_bar.take_damage(10)
+		#print("Took 10 damage! Health: ", health_bar.get_current_health())
+	#if Input.is_action_just_pressed("damage_large"):  # Y key
+		#health_bar.take_damage(25)
+		#print("Took 25 damage! Health: ", health_bar.get_current_health())
+	#if Input.is_action_just_pressed("heal_player"):  # U key
+#u		health_bar.heal(20)
+		#print("Healed 20 health! Health: ", health_bar.get_current_health())
 		

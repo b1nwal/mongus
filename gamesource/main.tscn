@@ -20,6 +20,7 @@ texture = ExtResource("3_h2yge")
 scale = Vector2(4, 4)
 
 [node name="HealthBar" parent="SBPlayer" instance=ExtResource("7_health_bar")]
+z_index = 1
 offset_left = -14.0
 offset_top = 12.0
 offset_right = 74.0
@@ -27,33 +28,38 @@ offset_bottom = 42.0
 scale = Vector2(0.3, 0.3)
 
 [node name="ExperienceBar" parent="SBPlayer" instance=ExtResource("5_exp_bar")]
-offset_left = -143.5
+z_index = 1
+offset_left = -144.0
 offset_top = -81.0
-offset_right = -83.5
+offset_right = 816.0
 offset_bottom = -21.0
 scale = Vector2(0.3, 0.3)
 
-[node name="Gametimer" parent="SBPlayer" instance=ExtResource("6_7mycd")]
-offset_left = 116.0
-offset_top = -66.0
-offset_right = 116.0
-offset_bottom = -66.0
-scale = Vector2(0.3, 0.3)
-
 [node name="inGameUI" parent="SBPlayer" instance=ExtResource("4_1bvp3")]
+z_index = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 122.0
+offset_left = 118.0
 offset_top = -34.0
-offset_right = 122.0
+offset_right = 118.0
 offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.3, 0.3)
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[node name="Gametimer" parent="SBPlayer" instance=ExtResource("6_7mycd")]
+z_index = 1
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 114.0
+offset_top = -64.0
+offset_right = 114.0
+offset_bottom = -64.0
+grow_horizontal = 1
+scale = Vector2(0.3, 0.3)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
