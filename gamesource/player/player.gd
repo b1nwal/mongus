@@ -64,18 +64,7 @@ func get_nearest_enemy():
 
 func die():
 	print("PLAYER DEAD")
-	# Show death screen instead of just pausing
-	show_death_screen()
-
-func show_death_screen():
-	"""Show the death screen popup"""
-	# Find the death screen in the scene
-	var death_screen = get_node("/root/Main/SBPlayer/DeathScreen")
-	if death_screen:
-		death_screen.show_death_screen()
-	else:
-		print("Death screen not found!")
-		get_tree().paused = true
+	get_tree().paused = true
 
 func _physics_process(delta):
 	var movement = Vector2.ZERO

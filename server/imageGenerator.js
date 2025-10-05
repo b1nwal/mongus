@@ -107,7 +107,7 @@ async function makeIconTransparent(inputBuffer, options = {}) {
 export async function generateCombinedImage(name, description, image1, image2) {
     try {
 
-        const newImage = combineBase64Images({image1, image2})
+        newImage = combineBase64Images({image1, image2})
         // 1️⃣ Generate the image with Gemini
     
         const prompt = [{ text: `Create a pixel art image of a weapon:
@@ -120,7 +120,7 @@ export async function generateCombinedImage(name, description, image1, image2) {
             {
               inlineData: {
                 mimeType: "image/png",
-                data: newImage,
+                data: base64Image,
               },
             },
           ];

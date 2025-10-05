@@ -6,8 +6,6 @@ extends Node
 func _ready():
 	add_child(gemini)
 	gemini.request_completed.connect(_on_ai_response)
-	get_node("/root/Main/SBPlayer/LevelUpPopup").popup_closed.connect(request)
-	
 func request(r: String):
 	print("sent a request")
 	gemini.send_template("weapon", r, "common")

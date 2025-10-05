@@ -21,26 +21,11 @@ func _process(delta):
 			animated_sprite.play("walk_left")
 	
 func die():
+	print("i'm dead")
 	alive = false
 	
-	# Give player 2 experience points when enemy dies
-	give_player_experience()
-	
+	print(get_parent())
 	queue_free()
-
-func give_player_experience():
-	"""Give the player 2 experience points for killing this enemy"""
-	# Try to find the experience bar in the main scene
-	var main_scene = get_node("/root/Main")
-	if main_scene:
-		var experience_bar = main_scene.get_node("SBPlayer/ExperienceBar")
-		if experience_bar:
-			experience_bar.add_experience(2)
-			print("Player gained 2 experience for killing enemy!")
-		else:
-			print("Experience bar not found!")
-	else:
-		print("Main scene not found!")
 
 func attack_player():
 	target.incur(damage)
