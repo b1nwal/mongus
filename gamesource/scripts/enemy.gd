@@ -2,7 +2,7 @@ extends Entity
 
 class_name Enemy
 
-var damage = 20
+var damage = 1
 var target
 var target_in_range
 
@@ -23,6 +23,8 @@ func _process(delta):
 func die():
 	print("i'm dead")
 	alive = false
+	
+	print(get_parent())
 	queue_free()
 
 func attack_player():
@@ -43,4 +45,4 @@ func _enemy_attackbox_exited(body: Node2D) -> void:
 func _on_attack_timer_timeout() -> void:
 	if target_in_range:
 		print("hit player")
-		target.incur(10)
+		target.incur(damage)

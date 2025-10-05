@@ -2,16 +2,19 @@ extends Node
 
 @onready var gemini := GeminiClient.new()
 @onready var SBPlayer = get_node("/root/Main/SBPlayer")
+var weaponType: String = "ranged"
 
 func _ready():
 	add_child(gemini)
 	gemini.request_completed.connect(_on_ai_response)
 func request(r: String):
-	gemini.send_template("weapon", r, "common")
+	print(weaponType, r, "common")
+	gemini.send_template(weaponType, r, "common")
+	
 	
 func _on_ai_response(success: bool, data, cached: bool):
 	if success:
-		SBPlayer.add_weapon(data)
+		SBPlayer.add_weapon(weaponType, data)
 	else:
 		print("Error:", data)
 	
