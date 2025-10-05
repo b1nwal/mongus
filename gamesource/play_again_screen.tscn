@@ -10,3 +10,80 @@ script = ExtResource("1_play_again_script")
 position = Vector2(578, 534)
 scale = Vector2(1.1298828, 1.0419922)
 texture = ExtResource("2_bhsa1")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainContainer" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 281.0
+offset_top = 84.0
+offset_right = 881.0
+offset_bottom = 484.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="UI/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExperienceLabel" type="Label" parent="UI/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Experience Gained: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NameInputContainer" type="HBoxContainer" parent="UI/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="NameLabel" type="Label" parent="UI/MainContainer/NameInputContainer"]
+layout_mode = 2
+text = "Enter your name:"
+
+[node name="NameInput" type="LineEdit" parent="UI/MainContainer/NameInputContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Your name here..."
+
+[node name="SubmitButton" type="Button" parent="UI/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Submit Score"
+
+[node name="LeaderboardContainer" type="VBoxContainer" parent="UI/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="LeaderboardTitle" type="Label" parent="UI/MainContainer/LeaderboardContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "HIGH SCORES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeaderboardList" type="VBoxContainer" parent="UI/MainContainer/LeaderboardContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="RestartButton" type="Button" parent="UI/MainContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Restart Game"
