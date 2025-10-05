@@ -11,16 +11,27 @@ var TweakerScene = preload("res://enemy/tweaker.tscn")
 
 func _ready():
 	ormm_request.request("octopus blade")
+	await get_tree().create_timer(1.0).timeout
 	ormm_request.request("water blade")
+	await get_tree().create_timer(1.0).timeout
 	ormm_request.request("jogging blade")
+	await get_tree().create_timer(1.0).timeout
 	ormm_request.request("music blade")
+	await get_tree().create_timer(1.0).timeout
 	ormm_request.request("heat blade")
+	await get_tree().create_timer(1.0).timeout
 	ormm_request.request("dog blade")
+	await get_tree().create_timer(1.0).timeout
 	ormm_request.request("fog blade")
+	await get_tree().create_timer(1.0).timeout
 	ormm_request.request("green blade")
+	await get_tree().create_timer(1.0).timeout
 	ormm_request.request("red blade")
+	await get_tree().create_timer(1.0).timeout
 	ormm_request.request("blood blade")
+	await get_tree().create_timer(1.0).timeout
 	ormm_request.request("glue blade")
+	await get_tree().create_timer(1.0).timeout
 	ormm_request.request("gun blade")
 	spawn_enemy()
 	

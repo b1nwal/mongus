@@ -13,8 +13,7 @@ func add_item(item: Weapon):
 	items.append(item)
 	print("Added ", item.weapon_info.name)
 	if len(items) > 9:
-		items.pop_back()
-		
+		items.pop_front()
 
 #func remove_item(item: Weapon):
 	#if item in items:
