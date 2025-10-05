@@ -36,10 +36,6 @@ theme_override_styles/hovered_selected_focus = SubResource("StyleBoxEmpty_wc563"
 theme_override_styles/selected = SubResource("StyleBoxEmpty_xdwui")
 theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_wlunv")
 theme_override_styles/cursor = SubResource("StyleBoxEmpty_fw6h3")
+select_mode = 1
 max_columns = 10
 fixed_icon_size = Vector2i(10, 10)
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 4.0
-
-[connection signal="item_selected" from="InventoryList" to="." method="_on_item_selected"]

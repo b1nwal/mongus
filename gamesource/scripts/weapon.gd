@@ -7,8 +7,7 @@ class_name Weapon
 	"rarity": "Common",
 	"description": "No description",
 	"damage": 0,
-	"texture": null,  # Texture2
-	"prompt": "",
+	"texture": null  # Texture2D
 }
 
 @export var default_scale: Vector2 = Vector2(0.095, 0.095)
@@ -20,7 +19,6 @@ var rarity: String = ""
 var description: String = ""
 var damage: int = 0
 var weapon_texture: ImageTexture = null
-var prompt: String = ""
 
 func _ready():
 	centered = false  # disable automatic centering
@@ -30,7 +28,7 @@ func _ready():
 	rarity = weapon_info.get("rarity", "Common")
 	description = weapon_info.get("description", "No description")
 	damage = weapon_info.get("damage", 0)
-	prompt = weapon_info.get("prompt","no prompt")
+	
 	texture = weapon_info.get("texture", null)
 	scale = default_scale
 	offset = default_offset

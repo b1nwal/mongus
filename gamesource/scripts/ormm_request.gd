@@ -2,7 +2,6 @@ extends Node
 
 @onready var gemini := GeminiClient.new()
 @onready var SBPlayer = get_node("/root/Main/SBPlayer")
-
 var weaponType: String = "ranged"
 
 func _ready():
