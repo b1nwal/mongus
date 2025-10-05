@@ -2,7 +2,11 @@ extends "res://scripts/entity.gd"
 
 var player_speed = 400;
 
-func _physics_process(delta):	
+func die():
+	print("PLAYER DEAD")
+	get_tree().paused = true
+
+func _physics_process(delta):
 	var movement = Vector2.ZERO
 	var pleft = Input.is_action_pressed("ui_left")
 	var pright = Input.is_action_pressed("ui_right")
@@ -29,5 +33,5 @@ func _physics_process(delta):
 		movement.y += player_speed * delta
 	elif pdown:
 		movement.y -= player_speed * delta
-	print(movement)
-	var collision = move_and_collide(-movement)
+	
+	move_and_collide(-movement)

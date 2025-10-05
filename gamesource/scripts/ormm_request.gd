@@ -1,24 +1,12 @@
 extends Node
 
-var TweakerScene = preload("res://enemy/tweaker.tscn")
-
 @onready var gemini := GeminiClient.new()
 
 func _ready():
 	add_child(gemini)
 	gemini.request_completed.connect(_on_ai_response)
-
-	# Use a prebuilt template
-	gemini.send_template("weapon", "ice sword")
-	spawn_enemy()
+	gemini.send_template("weapon_weak", "")
 	
-func spawn_enemy():
-	for i in 1:
-		var tweaker = TweakerScene.instantiate()
-		tweaker.position = Vector2(randi_range(-600,600),randi_range(-600,600))
-		tweaker.target = $SBPlayer
-		add_child(tweaker)
-
 func _on_ai_response(success: bool, data):
 	if success:
 		print("AI Response:", data)

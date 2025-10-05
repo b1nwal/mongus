@@ -11,9 +11,9 @@ func _process(delta):
 		var direction = (target.position - position).normalized()
 		var collision = move_and_collide(direction * speed * delta)
 		if (direction.x > 0):
-			$AnimatedSprite.play("walk_east")
+			$AnimatedSprite.play("walk_right")
 		if (direction.x < 0):
-			$AnimatedSprite.play("walk_west")
+			$AnimatedSprite.play("walk_left")
 	
 func die():
 	print("i'm dead")

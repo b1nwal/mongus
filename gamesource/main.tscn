@@ -13,6 +13,6 @@ scale = Vector2(2, 2)
 texture = ExtResource("3_h2yge")
 
 [node name="SBPlayer" parent="." instance=ExtResource("2_0xm2m")]
-scale = Vector2(5, 5)
+scale = Vector2(4, 4)
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]

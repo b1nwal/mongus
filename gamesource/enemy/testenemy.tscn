@@ -1,33 +1,85 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqditit3v3x3b"]
+[gd_scene load_steps=13 format=3 uid="uid://bqditit3v3x3b"]
 
 [ext_resource type="Script" uid="uid://bhi356v56cv2v" path="res://enemy/testenemy.gd" id="1_hdkjs"]
-[ext_resource type="Texture2D" uid="uid://bbnttkfk5mwt2" path="res://assets/enemy/test_enemy/enemy_beta.png" id="2_g54k6"]
+[ext_resource type="Texture2D" uid="uid://i1yrugkjxi4g" path="res://assets/enemy/ghoul/Ghoul_like-0.png" id="2_nxhib"]
+[ext_resource type="Texture2D" uid="uid://bl0tb2ojclq0v" path="res://assets/enemy/ghoul/Ghoul_like-1.png" id="3_ntf12"]
+[ext_resource type="Texture2D" uid="uid://qf13r1oyfkfs" path="res://assets/enemy/ghoul/Ghoul_like-2.png" id="4_3q2l5"]
+[ext_resource type="Texture2D" uid="uid://dpujryarqojbf" path="res://assets/enemy/ghoul/Ghoul_like-3.png" id="5_fcgxl"]
+[ext_resource type="Texture2D" uid="uid://bbgagl7da2td5" path="res://assets/enemy/ghoul/Ghoul_like-0R.png" id="6_0cbv2"]
+[ext_resource type="Texture2D" uid="uid://bwm6mbl64prmm" path="res://assets/enemy/ghoul/Ghoul_like-1R.png" id="7_iloht"]
+[ext_resource type="Texture2D" uid="uid://clhi5mdcec15n" path="res://assets/enemy/ghoul/Ghoul_like-2R.png" id="8_fkwvj"]
+[ext_resource type="Texture2D" uid="uid://bvvfm01bhj1n6" path="res://assets/enemy/ghoul/Ghoul_like-3R.png" id="9_66ywc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2mvqj"]
-size = Vector2(64, 136)
+size = Vector2(32, 42.6667)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ofo6g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nxhib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ntf12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3q2l5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_fcgxl")
+}],
+"loop": true,
+"name": &"walk_east",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_0cbv2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_iloht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fkwvj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_66ywc")
+}],
+"loop": true,
+"name": &"walk_west",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdkjs"]
-size = Vector2(48, 48)
+size = Vector2(32, 24)
 
 [node name="testenemy" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
 collision_layer = 2
-collision_mask = 4
+collision_mask = 6
 script = ExtResource("1_hdkjs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
-scale = Vector2(0.5, 0.5)
+position = Vector2(0, -1.43051e-06)
+scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_2mvqj")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-9.90354e-07, 4)
-scale = Vector2(0.308, 0.337)
-texture = ExtResource("2_g54k6")
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_ofo6g")
+animation = &"walk_east"
 
 [node name="AttackBox" type="Area2D" parent="."]
+scale = Vector2(1.5, 1.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
-position = Vector2(0, -16)
+position = Vector2(0, -4)
+scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_hdkjs")
 
+[node name="AttackTimer" type="Timer" parent="AttackBox"]
+wait_time = 0.3
+
 [connection signal="body_entered" from="AttackBox" to="." method="_enemy_attackbox_entered"]
+[connection signal="body_exited" from="AttackBox" to="." method="_enemy_attackbox_exited"]
+[connection signal="timeout" from="AttackBox/AttackTimer" to="." method="_on_attack_timer_timeout"]
