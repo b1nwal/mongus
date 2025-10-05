@@ -7,7 +7,7 @@ func _ready():
 	speed = 20
 
 func _process(delta):
-	print(global_position.distance_to(Vector2(0,0)))
+	# print(global_position.distance_to(Vector2(0,0)))
 	var direction = (target.position - position).normalized()
 	var collision = move_and_collide(direction * speed * delta)
 	if collision:
