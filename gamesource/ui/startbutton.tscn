@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://djbqf6ltr6lsi"]
+
+[ext_resource type="Texture2D" uid="uid://7wgq2h8ysa8d" path="res://assets/start_menu/startbtn-removebg-preview.png" id="1_klsww"]
+[ext_resource type="Texture2D" uid="uid://cdjj3o3cdtjgv" path="res://assets/start_menu/startbtnhover.png" id="2_27b8p"]
+[ext_resource type="Script" uid="uid://dv3tgji8x5fp0" path="res://ui/button.gd" id="3_4jn6e"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4jn6e"]
+texture = ExtResource("1_klsww")
+region_rect = Rect2(96, 176, 304, 152)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xvojl"]
+texture = ExtResource("1_klsww")
+region_rect = Rect2(96, 176, 304, 152)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ndgm"]
+texture = ExtResource("2_27b8p")
+region_rect = Rect2(96, 176, 304, 152)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="GridContainer"]
+custom_minimum_size = Vector2(304, 152)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_4jn6e")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xvojl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6ndgm")
+text = " "
+script = ExtResource("3_4jn6e")
+
+[connection signal="pressed" from="GridContainer/Button" to="GridContainer/Button" method="_on_button_pressed"]
