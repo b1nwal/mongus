@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c28qrbiwnt8ih"
-path="res://.godot/imported/tweaker3R.png-cf7825f18e2596a0c9a693e616e08c72.ctex"
+uid="uid://7wgq2h8ysa8d"
+path="res://.godot/imported/startbtn-removebg-preview.png-18910edc7fa84c117f0a0b48d663cdd4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/tweaker/tweaker3R.png"
-dest_files=["res://.godot/imported/tweaker3R.png-cf7825f18e2596a0c9a693e616e08c72.ctex"]
+source_file="res://assets/start_menu/startbtn-removebg-preview.png"
+dest_files=["res://.godot/imported/startbtn-removebg-preview.png-18910edc7fa84c117f0a0b48d663cdd4.ctex"]
 
 [params]
 

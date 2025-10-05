@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c28qrbiwnt8ih"
-path="res://.godot/imported/tweaker3R.png-cf7825f18e2596a0c9a693e616e08c72.ctex"
+uid="uid://cdjj3o3cdtjgv"
+path="res://.godot/imported/startbtnhover.png-b69414079fc78f5bef12534967d29118.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/tweaker/tweaker3R.png"
-dest_files=["res://.godot/imported/tweaker3R.png-cf7825f18e2596a0c9a693e616e08c72.ctex"]
+source_file="res://assets/start_menu/startbtnhover.png"
+dest_files=["res://.godot/imported/startbtnhover.png-b69414079fc78f5bef12534967d29118.ctex"]
 
 [params]
 
