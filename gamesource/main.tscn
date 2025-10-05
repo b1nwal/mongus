@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bvk5l7e0v3d1h" path="res://ui/health_bar.tscn" id="7_health_bar"]
 [ext_resource type="Script" uid="uid://cniexth6n2oi7" path="res://scripts/ormm_request.gd" id="8_5vw27"]
 [ext_resource type="Script" uid="uid://42wa0f5vqml" path="res://scripts/ormm_crafting.gd" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://db5dbbil4mlxi" path="res://ui/levelup_popup.tscn" id="9_levelup_popup"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")

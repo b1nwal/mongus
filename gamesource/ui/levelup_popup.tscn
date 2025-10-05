@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=3 uid="uid://db5dbbil4mlxi"]
+
+[ext_resource type="Script" uid="uid://cn1nug3yu7fwj" path="res://ui/levelup_popup.gd" id="1_popup_script"]
+[ext_resource type="Texture2D" uid="uid://cj1u87iem3s3u" path="res://assets/level_up_pop_up/Leveluppopup.png" id="2_wma02"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.1, 0.1, 0.1, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="LevelUpPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_popup_script")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="PopupContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainBox" type="VBoxContainer" parent="PopupContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ImageContainer" type="Panel" parent="PopupContainer/MainBox"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="ImageDisplay" type="TextureRect" parent="PopupContainer/MainBox/ImageContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wma02")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="TextInputContainer" type="VBoxContainer" parent="PopupContainer/MainBox"]
+layout_mode = 2
+
+[node name="SubmitButton" type="Button" parent="PopupContainer/MainBox/TextInputContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Submit"
+
+[node name="TextInput" type="LineEdit" parent="PopupContainer/MainBox/TextInputContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter your message here..."
