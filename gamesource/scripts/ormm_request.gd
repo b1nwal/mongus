@@ -2,10 +2,10 @@ extends Node
 
 @onready var gemini := GeminiClient.new()
 
-func _ready():
+func request(r: String):
 	add_child(gemini)
 	gemini.request_completed.connect(_on_ai_response)
-	gemini.send_template("weapon", "ice blade", "common")
+	gemini.send_template("weapon", r, "common")
 	
 func _on_ai_response(success: bool, data, cached: bool):
 	if success:
