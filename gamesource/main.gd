@@ -4,7 +4,6 @@ var TweakerScene = preload("res://enemy/tweaker.tscn")
 
 @onready var gemini := GeminiClient.new()
 
-@onready var worldnode = $WorldNode
 @onready var experience_bar = $ExperienceBar
 @onready var health_bar = $HealthBar
 

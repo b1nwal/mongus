@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8x7y9z2a1b3c"]
+[gd_scene load_steps=4 format=3 uid="uid://b8x70a02a1b3c"]
 
-[ext_resource type="Script" path="res://ui/experience_bar.gd" id="1_exp_script"]
+[ext_resource type="Script" uid="uid://b5r4nc1l1cgyv" path="res://ui/experience_bar.gd" id="1_exp_script"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0.2, 0.2, 0.2, 0.8)
@@ -10,7 +10,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2"]
-bg_color = Color(0.2, 0.6, 1.0, 0.9)
+bg_color = Color(0.2, 0.6, 1, 0.9)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -18,8 +18,9 @@ corner_radius_bottom_left = 5
 
 [node name="ExperienceBar" type="Control"]
 layout_mode = 3
-anchors_preset = 10
+anchors_preset = 12
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -80.0
 offset_bottom = -20.0
@@ -36,6 +37,8 @@ offset_left = 20.0
 offset_top = 10.0
 offset_right = -20.0
 offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1")
 
 [node name="ExpBar" type="ProgressBar" parent="."]
@@ -47,7 +50,8 @@ offset_left = 25.0
 offset_top = 15.0
 offset_right = -25.0
 offset_bottom = -15.0
-value = 0.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_2")
 
 [node name="LevelLabel" type="Label" parent="."]
@@ -61,6 +65,8 @@ offset_left = -50.0
 offset_top = 25.0
 offset_right = 50.0
 offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Level 1"
 horizontal_alignment = 1
 vertical_alignment = 1
