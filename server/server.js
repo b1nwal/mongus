@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import md5 from "md5";
 import { GoogleGenAI, Type } from "@google/genai";
-import { generateWeaponImage } from "./imageGenerator.js";
+import { generateSingleImage } from "./imageGenerator.js";
 
 dotenv.config();
 
@@ -40,6 +40,7 @@ const SCHEMAS = {
         rarity: { type: Type.STRING },
         swingSpeed: {type: Type.NUMBER},
         slashAngle: {type: Type.INTEGER},
+        cooldown: {type: Type.NUMBER},
         damage: { type: Type.INTEGER},
         scaleFactor: {type: Type.NUMBER}
       },
@@ -49,6 +50,7 @@ const SCHEMAS = {
         "rarity",
         "swingSpeed",
         "slashAngle",
+        "cooldown",
         "scaleFactor",
         "damage"
       ]
@@ -72,48 +74,108 @@ async function saveCachedResponse(hash, data) {
 app.post("/generate", async (req, res) => {
   try {
     const { type, payload } = req.body;
+    if (type == "weapon") {
 
-    if (!payload) return res.status(400).json({ success: false, error: "No payload provided" });
-    if (!SCHEMAS[type]) return res.status(400).json({ success: false, error: "Unknown type" });
+      if (!payload) return res.status(400).json({ success: false, error: "No payload provided" });
+      if (!SCHEMAS[type]) return res.status(400).json({ success: false, error: "Unknown type" });
 
-    console.log("Schema shape" + JSON.stringify(SCHEMAS[type]))
-    console.log("Prompt" + payload)
+      console.log("Schema shape" + JSON.stringify(SCHEMAS[type]))
+      console.log("Prompt" + payload)
 
-    const hash = md5(type + ":" + payload);
+      const hash = md5(type + ":" + payload);
 
-    // Check cache first
-    const cached = await getCachedResponse(hash);
-    if (cached) {
-      console.log("Cache hit for type:", type);
-      return res.json({ success: true, data: cached, cached: true });
-    }
-
-    console.log("Cache miss. Generating new response for type:", type);
-
-    // Create model with schema
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
-      contents: payload,
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: SCHEMAS[type]
+      // Check cache first
+      const cached = await getCachedResponse(hash);
+      if (cached) {
+        console.log("Cache hit for type:", type);
+        return res.json({ success: true, data: cached, cached: true });
       }
-    });
 
-    const data = JSON.parse(response.text)[0];
+      console.log("Cache miss. Generating new response for type:", type);
 
-    console.log(response.text)
+      // Create model with schema
+      const response = await ai.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: payload,
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: SCHEMAS[type]
+        }
+      });
 
-    const base64Image = await generateWeaponImage(
-      data["name"],
-      data["description"]
-    );
+      const data = JSON.parse(response.text)[0];
 
-    data["image"] = base64Image
-    // Save to cache
-    await saveCachedResponse(hash, data);
+      console.log(response.text)
 
-    res.json({ success: true, data, cached: false });
+      const base64Image = await generateSingleImage(
+        data["name"],
+        data["description"]
+      );
+
+      data["image"] = base64Image
+      // Save to cache
+      await saveCachedResponse(hash, data);
+
+      res.json({ success: true, data, cached: false });
+    } else if (type == "merge") {
+      console.log("\n\n---------MERGING----------\n\n")
+      var payloadJSON = JSON.parse(payload)
+
+      var id1 = payloadJSON["id1"]
+      var id2 = payloadJSON["id2"]
+
+      const hash = md5(id1 + ":" + id2);
+      const cached = await getCachedResponse(hash);
+      if (cached) {
+        console.log("Cache hit for type:", type);
+        return res.json({ success: true, data: cached, cached: true });
+      }
+
+      
+     
+
+     
+      const response1 = await getCachedResponse(id1);
+      const response2 = await getCachedResponse(id2);
+
+      console.log(response1["description"])
+      const prompt = "Generate a weapon which is a combination of these two weapons. IT MUST BE ONE WEAPON AFTERWARDS; A THEMATIC MERGE. Stats should be balanced, not a straight addition." + 
+      "Weapon 1: Name, " + response1["name"] + " Description, " + response1["description"] + " Damage, " + response1["damage"] + " Cooldown, " + response1["cooldown"] + " slashAngle, " + response1["slash_angle"] + response1["swing_speed"] +
+      "Weapon 2: Name, " + response2["name"] + " Description, " + response2["description"] + " Damage, " + response2["damage"] + " Cooldown, " + response2["cooldown"] + " slashAngle, " + response2["slash_angle"] + response2["swing_speed"] + 
+      "It should have a name, a flavour-text description (purely cosmetic), damage number (integer, positive, scaling based on rarity, " +
+       "between 1 and 1000 NO HIGHER), a swing speed (between 0.3 and 3) which is inversely proportional to the swing angle, a swing angle " + 
+       "(between 65 and 275), a scale factor (between 1.0 and 1.5 depending on heft), a cooldown (time between attacks, 0.9-2 seconds), and " + 
+       "should have a rarity similar to the two base items. NO TEXT OR WATERMARK."
+      
+      
+      const response = await ai.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: prompt,
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: SCHEMAS["weapon"]
+        }
+      });
+      const data = JSON.parse(response.text)[0];
+
+      const base64Image = await generateSingleImage(
+        data["name"],
+        data["description"],
+        response1["image"],
+        response2["image"]
+      );
+
+      
+
+      console.log(response.text)
+
+      data["image"] = base64Image
+      // Save to cache
+      await saveCachedResponse(hash, data);
+
+      res.json({ success: true, data, cached: false });
+
+    }
   } catch (err) {
     console.error("Gemini error:", err);
     res.status(500).json({ success: false, error: err.message });
