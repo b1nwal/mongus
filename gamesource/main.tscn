@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cniexth6n2oi7" path="res://scripts/ormm_request.gd" id="8_5vw27"]
 [ext_resource type="Script" uid="uid://42wa0f5vqml" path="res://scripts/ormm_crafting.gd" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://db5dbbil4mlxi" path="res://ui/levelup_popup.tscn" id="9_levelup_popup"]
+[ext_resource type="PackedScene" uid="uid://byx2mvsjdc5a5" path="res://ui/crafting_popup.tscn" id="10_crafting_popup"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
@@ -58,10 +59,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 118.0
-offset_top = -34.0
-offset_right = 118.0
-offset_bottom = -34.0
+offset_left = 127.75
+offset_top = -33.75
+offset_right = 127.75
+offset_bottom = -33.75
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.3, 0.3)
@@ -79,3 +80,21 @@ grow_horizontal = 1
 scale = Vector2(0.3, 0.3)
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Ormm" type="Node" parent="."]
+script = ExtResource("8_5vw27")
+
+[node name="LevelUpPopup" parent="." instance=ExtResource("9_levelup_popup")]
+z_index = 4
+offset_left = -3.0
+offset_top = 1.0
+offset_right = -3.0
+offset_bottom = 1.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CraftingPopup" parent="." instance=ExtResource("10_crafting_popup")]
+offset_left = 316.0
+offset_top = 10.0
+offset_right = 316.0
+offset_bottom = 10.0
