@@ -1,7 +1,32 @@
-extends "res://scripts/entity.gd"
+extends Entity
 
 @export var swing_test_key: Key = Key.KEY_Q
 var between: float = 0.0
+
+@onready var inv_ui = $InventoryUI
+var inventory = Inventory.new()
+
+func add_weapon(data: Dictionary) -> void:
+	# Decode Base64 into raw bytes
+	var base64_string: String = data["image"]
+	var raw_image_data = Marshalls.base64_to_raw(base64_string)
+	
+	# Load bytes into an Image
+	var img = Image.new()
+	var err = img.load_png_from_buffer(raw_image_data)
+	if err != OK:
+		push_error("Failed to load image from Base64")
+		return
+	
+	# Create a Texture2D from the Image
+	var image_texture = ImageTexture.create_from_image(img)
+	
+	var swing_weapon = SwingWeapon.new()
+	swing_weapon.weapon_info = {"name": data["name"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"]}
+	inventory.add_item(swing_weapon)
+	inv_ui.update_ui()
+	# Increment image counter
+
 func _process(delta):
 	# Check if the swing test key was just pressed
 	

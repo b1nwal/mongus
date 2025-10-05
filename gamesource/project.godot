@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="mongus"
-run/main_scene="uid://snxuxiulcv8a"
+run/main_scene="uid://d387hc3rngs1w"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

@@ -6,6 +6,9 @@ var TweakerScene = preload("res://enemy/tweaker.tscn")
 
 @onready var experience_bar = $SBPlayer/ExperienceBar
 @onready var health_bar = $SBPlayer/HealthBar
+@onready var ormm_request = $OrmmRequest
+
+@onready var levelup_popup = $LevelUpPopup
 
 func _ready():
 	add_child(gemini)
@@ -21,10 +24,41 @@ func _ready():
 	"id2": ("weapon:"+ gemini.PROMPT_TEMPLATES["weapon"].call("common dagger", "trash")).md5_text()}))
 	
 	
+	ormm_request.request("octopus blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("water blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("jogging blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("music blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("heat blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("dog blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("fog blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("green blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("red blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("blood blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("glue blade")
+	await get_tree().create_timer(1.0).timeout
+	ormm_request.request("gun blade")
+	spawn_enemy()
+	
+	# Connect level up signal
+	experience_bar.level_up.connect(_on_level_up)
+	
+	# Connect popup closed signal
+	levelup_popup.popup_closed.connect(_on_levelup_message_submitted)
 	
 	
 
 var darp: float = 0.0
+
 func _process(delta):
 	darp += delta
 	if (darp >= 3.0):
@@ -35,46 +69,41 @@ func _process(delta):
 		spawn_enemy()
 		darp = 0.0
 	
-	
+
 func spawn_enemy():
-	for i in 1:
+	for i in 10:
 		var tweaker = TweakerScene.instantiate()
 		tweaker.position = Vector2(randi_range(-600,600),randi_range(-600,600))
 		tweaker.target = $SBPlayer
 		add_child(tweaker)
 
-func _on_ai_response(success: bool, data, cached: bool):
-	if success:
-		add_weapon(data)
-	else:
-		print("Error:", data)
+func _on_level_up(new_level: int):
+	"""Handle level up event - show popup"""
+	print("Level up to level ", new_level)
 	
-func _on_request_completed(result, response_code, headers, body):
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	print(json["message"])
-
-var image_count := 0
-const IMAGE_SIZE := Vector2(256, 256)
-
-func add_weapon(data: Dictionary) -> void:
-	# Decode Base64 into raw bytes
-	var base64_string: String = data["image"]
-	var raw_image_data = Marshalls.base64_to_raw(base64_string)
-	
-	# Load bytes into an Image
-	var img = Image.new()
-	var err = img.load_png_from_buffer(raw_image_data)
-	if err != OK:
-		push_error("Failed to load image from Base64")
-		return
+	# You can set a custom image here if you want
+	# For now, we'll use a default texture or leave it empty
+	# levelup_popup.set_image(your_texture_here)
 	
 	# Create a Texture2D from the Image
 	var image_texture = ImageTexture.create_from_image(img)
 	
 	var swing_weapon = SwingWeapon.new()
 	swing_weapon.weapon_info = {"name": data["name"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"], "cooldown": data["cooldown"]}
+	# Show the popup
+	levelup_popup.show_popup()
 
-	# Add the sprite as a child
-	$SBPlayer.add_child(swing_weapon)
+func _on_levelup_message_submitted(message: String):
+	"""Handle when user submits their level-up message"""
+	print("Player's level-up message: ", message)
+	# You can save this message, display it, or do whatever you want with it
+
+func _physics_process(delta):
 	
-	# Increment image counter
+	# Test experience system - press E to add 10 exp, press R to add 50 exp
+	if Input.is_action_just_pressed("add_exp_small"):  # E key
+		experience_bar.add_experience(10)
+		print("Added 10 experience!")
+	if Input.is_action_just_pressed("add_exp_large"):  # R key
+		experience_bar.add_experience(50)
+		print("Added 50 experience!")

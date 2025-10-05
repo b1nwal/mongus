@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d387hc3rngs1w"]
+
+[ext_resource type="Texture2D" uid="uid://decdtlqrp011x" path="res://assets/start_menu/Gemini_Generated_Image_ryhw68ryhw68ryhw.png" id="1_0dtwt"]
+[ext_resource type="PackedScene" uid="uid://djbqf6ltr6lsi" path="res://ui/startbutton.tscn" id="2_m6veh"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GeminiGeneratedImageRyhw68Ryhw68Ryhw" type="Sprite2D" parent="."]
+position = Vector2(575.5, 528.5)
+scale = Vector2(1.11426, 1.02441)
+texture = ExtResource("1_0dtwt")
+
+[node name="Control" parent="." instance=ExtResource("2_m6veh")]
+offset_left = 578.0
+offset_top = 520.0
+offset_right = 578.0
+offset_bottom = 520.0
