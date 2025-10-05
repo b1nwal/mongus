@@ -50,6 +50,7 @@ func swing_sword(direction_given: float):
 	rotation_degrees = start_angle
 	
 	already_hit = []
+	var hitbox = null
 	
 	var tween1 = create_tween()
 	modulate.a = 0.0 
@@ -61,14 +62,13 @@ func swing_sword(direction_given: float):
 	# Always rotate clockwise across the -180/180 boundary safdely
 	# Normalize so that tween always moves clockwise
 	
-	var hitbox = null
+	
+
 	for child in get_children():
 		if child is Area2D:
 			hitbox = child
-
-	
-	hitbox.monitoring = true  # enable detection
-		
+	  # enable detection
+	hitbox.monitoring = true
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_QUAD)

@@ -9,13 +9,12 @@ func _process(delta):
 
 # Function to swing all weapon children
 func tick_weapons(delta):
+	var angle_to_enemy = get_nearest_enemy()
 	for child in get_children():
 		if child is SwingWeapon:
 			child.internal_cooldown += delta
 			if child.internal_cooldown > child.cooldown and !child.inswing:
-				var angle_to_enemy = get_nearest_enemy()
 				child.internal_cooldown = 0.0
-				
 				if (angle_to_enemy != null):
 					child.swing_sword(angle_to_enemy)
 				

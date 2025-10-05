@@ -12,9 +12,7 @@ func _ready():
 	gemini.request_completed.connect(_on_ai_response)
 
 	# Using a template:
-	gemini.send_template("weapon", "a literal pirate", "rare")
-	gemini.send_template("weapon", "fire alarm", "common")
-	gemini.send_template("weapon", "quasar", "mythic")
+	gemini.send_template("weapon", "rusty blade", "common")
 	
 	
 	
