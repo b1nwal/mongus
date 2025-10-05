@@ -10,15 +10,15 @@ const SERVER_URL := "http://localhost:3000/generate"
 # --- Prompt templates ---
 # Templates now only define the "payload" string; "type" is passed separately.
 var PROMPT_TEMPLATES := {
-	"weapon": func(name: String = "") -> String:
-		return "Generate a weapon" + ((" themed around " + name) if name != "" else "") + ". It should have a name, a flavour-text description (purely cosmetic), and rarity (single word rarity).",
+	"weapon": func(name: String = "", rarity: String = "any") -> String:
+		return "Generate a weapon" + ((" themed around " + name) if name != "" else "") + ". It should have a name, a flavour-text description (purely cosmetic), damage number (integer, positive, scaling based on rarity, between 1 and 1000 NO HIGHER), a swing speed (between 0.3 and 3) which is inversely proportional to the swing angle, a swing angle (between 65 and 275), a scale factor (between 1.0 and 1.5 depending on heft), and is " + rarity + " rarity.",
 	
 	"npc": func(role: String = "") -> String:
 		return "Create a JSON list of 3 NPCs for an RPG" + ((" specializing in " + role) if role != "" else "") + ". Include their name, personality, and backstory summary."
 }
 
 # --- SIGNALS ---
-signal request_started(type: String, payload: String)
+signal request_started(type: String, payload: String, rarity: String)
 signal request_completed(success: bool, data: Variant, cached: bool)
 
 # --- PUBLIC API ---
@@ -43,12 +43,12 @@ func send_typed_prompt(type_name: String, payload: String):
 		http.queue_free()  # cleanup on failure
 
 ## Sends a prompt using a predefined template
-func send_template(template_name: String, arg: String = ""):
+func send_template(template_name: String, arg: String = "", rarity: String = "any"):
 	if not PROMPT_TEMPLATES.has(template_name):
 		push_error("Unknown prompt template: %s" % template_name)
 		return
 	
-	var payload: String = PROMPT_TEMPLATES[template_name].call(arg)
+	var payload: String = PROMPT_TEMPLATES[template_name].call(arg, rarity)
 
 	
 	send_typed_prompt(template_name, payload)

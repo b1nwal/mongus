@@ -38,8 +38,20 @@ const SCHEMAS = {
         name: { type: Type.STRING },
         description: { type: Type.STRING },
         rarity: { type: Type.STRING },
+        swingSpeed: {type: Type.NUMBER},
+        slashAngle: {type: Type.INTEGER},
+        damage: { type: Type.INTEGER},
+        scaleFactor: {type: Type.NUMBER}
       },
-      propertyOrdering: ["name", "description", "rarity"]
+      required: [
+        "name",
+        "description",
+        "rarity",
+        "swingSpeed",
+        "slashAngle",
+        "scaleFactor",
+        "damage"
+      ]
     } 
   }
 };
@@ -89,6 +101,8 @@ app.post("/generate", async (req, res) => {
     });
 
     const data = JSON.parse(response.text)[0];
+
+    console.log(response.text)
 
     const base64Image = await generateWeaponImage(
       data["name"],
