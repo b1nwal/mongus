@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://c86uqdeos4gx3"]
+
+[ext_resource type="Script" uid="uid://g63k3tfkhxxm" path="res://player/inventory_ui.gd" id="1_w0od7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_caolo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oiwi5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_er88p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wc563"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xdwui"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wlunv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fw6h3"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w0od7")
+
+[node name="InventoryList" type="ItemList" parent="."]
+layout_mode = 0
+offset_right = 136.0
+offset_bottom = 22.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_caolo")
+theme_override_styles/hovered = SubResource("StyleBoxEmpty_oiwi5")
+theme_override_styles/hovered_selected = SubResource("StyleBoxEmpty_er88p")
+theme_override_styles/hovered_selected_focus = SubResource("StyleBoxEmpty_wc563")
+theme_override_styles/selected = SubResource("StyleBoxEmpty_xdwui")
+theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_wlunv")
+theme_override_styles/cursor = SubResource("StyleBoxEmpty_fw6h3")
+select_mode = 1
+max_columns = 10
+fixed_icon_size = Vector2i(10, 10)
