@@ -6,11 +6,11 @@ func _ready():
 	add_child(gemini)
 	gemini.request_completed.connect(_on_ai_response)
 
-	# Use a prebuilt template
-	gemini.send_template("weapon", "ice sword")
+	# Using a template:
+	gemini.send_template("weapon", "ice")
 
-func _on_ai_response(success: bool, data):
+func _on_ai_response(success: bool, data, cached: bool):
 	if success:
-		print("AI Response:", data)
+		print("AI Response (cached=%s): %s" % [cached, data])
 	else:
 		print("Error:", data)
