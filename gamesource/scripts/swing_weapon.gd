@@ -4,7 +4,7 @@ class_name SwingWeapon
 
 var swing_speed: float = 1.0
 var slash_angle: float = 135.0
-var cooldown: float = 2.0
+var cooldown: float = .5
 var internal_cooldown: float = 0.0
 var inswing: bool = false
 var already_hit: Array = []
@@ -19,13 +19,13 @@ func _ready():
 	damage = weapon_info.get("damage", 0)
 	
 	texture = weapon_info.get("texture", null)
-	cooldown = weapon_info.get("cooldown", 2.0)
+	cooldown = weapon_info.get("cooldown", .5)
 	internal_cooldown = 0.0
 	inswing = false
 	already_hit = []
 	
 	
-	modulate.a = 0.0
+	# modulate.a = 0.0
 	
 	scale = default_scale
 	if weapon_info.get("scale_factor"):
@@ -40,7 +40,6 @@ func _ready():
 
 func swing_sword(direction_given: float):
 	# Convert angles to radians
-	
 	if (inswing):
 		return
 	inswing = true
@@ -52,11 +51,11 @@ func swing_sword(direction_given: float):
 	already_hit = []
 	var hitbox = null
 	
-	var tween1 = create_tween()
-	modulate.a = 0.0 
-	tween1.set_trans(Tween.TRANS_LINEAR)
-	tween1.set_ease(Tween.EASE_IN)
-	tween1.tween_property(self, "modulate:a", 1.0, (1/swing_speed)/6)
+	#var tween1 = create_tween()
+	#modulate.a = 0.0 
+	#tween1.set_trans(Tween.TRANS_LINEAR)
+	#tween1.set_ease(Tween.EASE_IN)
+	#tween1.tween_property(self, "modulate:a", 1.0, (1/swing_speed)/6)
 	
 
 	# Always rotate clockwise across the -180/180 boundary safdely
@@ -75,18 +74,16 @@ func swing_sword(direction_given: float):
 	tween.tween_property(self, "rotation_degrees", start_angle + slash_angle, 0.7).set_delay((1.0 / swing_speed) / 6.0).connect("finished", Callable(hitbox, "set_monitoring"), false)
 	
 	
-	var tween2 = create_tween()
-	tween2.set_trans(Tween.TRANS_LINEAR)
-	tween2.set_ease(Tween.EASE_OUT)
-	tween2.tween_property(self, "modulate:a", 0.0,  (1/swing_speed)/6).set_delay(0.7+(1/swing_speed)/6)
+	#var tween2 = create_tween()
+	#tween2.set_trans(Tween.TRANS_LINEAR)
+	#tween2.set_ease(Tween.EASE_OUT)
+	#tween2.tween_property(self, "modulate:a", 0.0,  (1/swing_speed)/6).set_delay(0.7+(1/swing_speed)/6)
 	
 	inswing = false
 	
 	
 	
 	# If there's an existing tween, remove it
-	
-	
 	
 func create_hitbox_from_image(image: Image) -> Area2D:
 	var width = image.get_width()

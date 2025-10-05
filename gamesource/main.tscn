@@ -100,6 +100,3 @@ z_index = 5
 scale = Vector2(0.3, 0.3)
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
-
-[node name="Ormm" type="Node" parent="."]
-script = ExtResource("8_5vw27")

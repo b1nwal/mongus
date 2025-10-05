@@ -1,4 +1,4 @@
 extends Enemy
 
 func _ready():
-	damage = 200
+	damage = 1
