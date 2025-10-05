@@ -1,0 +1,132 @@
+[gd_scene load_steps=16 format=3 uid="uid://byjhqwccjf5bk"]
+
+[ext_resource type="Script" uid="uid://bajtxeb3khumk" path="res://ui/pop_up_menu_manager.gd" id="1_4v80v"]
+[ext_resource type="Texture2D" uid="uid://dyca5imwfwmcr" path="res://Sprout Lands - UI Pack - Basic pack/custom sprites/modifided version of the sprite sheet.png" id="1_kenku"]
+[ext_resource type="Texture2D" uid="uid://2rbteyveguds" path="res://Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="1_onc8m"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_onc8m"]
+texture = ExtResource("1_kenku")
+region_rect = Rect2(709, 164, 22, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e6quo"]
+texture = ExtResource("1_kenku")
+region_rect = Rect2(741, 166, 22, 22)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cwbuu"]
+texture = ExtResource("1_kenku")
+region_rect = Rect2(741, 166, 22, 22)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0qsvx"]
+texture = ExtResource("1_kenku")
+region_rect = Rect2(645, 100, 22, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uusyb"]
+texture = ExtResource("1_kenku")
+region_rect = Rect2(677, 102, 22, 22)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ep3pr"]
+texture = ExtResource("1_kenku")
+region_rect = Rect2(677, 102, 22, 22)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dpq86"]
+texture = ExtResource("1_onc8m")
+region_rect = Rect2(837, 228, 22, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l8h7b"]
+texture = ExtResource("1_onc8m")
+region_rect = Rect2(869, 230, 22, 22)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ukwlx"]
+texture = ExtResource("1_onc8m")
+region_rect = Rect2(869, 230, 22, 22)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h3j15"]
+texture = ExtResource("1_kenku")
+region_rect = Rect2(772, 163, 22, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tjjbm"]
+texture = ExtResource("1_onc8m")
+region_rect = Rect2(804, 197, 22, 22)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nw3uw"]
+texture = ExtResource("1_onc8m")
+region_rect = Rect2(804, 197, 22, 22)
+
+[node name="inGameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="popUpMenu" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4v80v")
+
+[node name="baseMenuScreenContain" type="VBoxContainer" parent="popUpMenu"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/separation = 4
+
+[node name="baseMenuScreen" type="MarginContainer" parent="popUpMenu/baseMenuScreenContain"]
+layout_mode = 2
+
+[node name="buttonContainer" type="VBoxContainer" parent="popUpMenu/baseMenuScreenContain/baseMenuScreen"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="topButtonContainer" type="HBoxContainer" parent="popUpMenu/baseMenuScreenContain/baseMenuScreen/buttonContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="helpButton" type="Button" parent="popUpMenu/baseMenuScreenContain/baseMenuScreen/buttonContainer/topButtonContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_onc8m")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_e6quo")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cwbuu")
+
+[node name="pauseButton" type="Button" parent="popUpMenu/baseMenuScreenContain/baseMenuScreen/buttonContainer/topButtonContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_0qsvx")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_uusyb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ep3pr")
+
+[node name="bottomButtonContainer2" type="HBoxContainer" parent="popUpMenu/baseMenuScreenContain/baseMenuScreen/buttonContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="settingsButton" type="Button" parent="popUpMenu/baseMenuScreenContain/baseMenuScreen/buttonContainer/bottomButtonContainer2"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_dpq86")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l8h7b")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ukwlx")
+
+[node name="quitButton" type="Button" parent="popUpMenu/baseMenuScreenContain/baseMenuScreen/buttonContainer/bottomButtonContainer2"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_h3j15")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tjjbm")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nw3uw")
+
+[node name="seperator" type="Control" parent="popUpMenu/baseMenuScreenContain"]
+layout_mode = 2
+size_flags_vertical = 0

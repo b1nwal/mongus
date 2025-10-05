@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsn802gpvh3vb"]
+
+[ext_resource type="Script" uid="uid://del0nmr7axfyp" path="res://ui/gametimer.gd" id="1_vqbyu"]
+
+[node name="Gametimer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vqbyu")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 41.0
+offset_bottom = 41.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 23.0
+offset_bottom = 22.0
+text = "00:"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = -1.0
+offset_right = 47.0
+offset_bottom = 22.0
+text = "00:"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = -1.0
+offset_right = 71.0
+offset_bottom = 22.0
+text = "00:"
+horizontal_alignment = 2
