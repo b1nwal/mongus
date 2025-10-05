@@ -12,9 +12,11 @@ func _ready():
 	gemini.request_completed.connect(_on_ai_response)
 
 	# Using a template:
-	gemini.send_template("weapon", "rusty sword", "common")
-	gemini.send_template("weapon", "old dagger", "common")
-	gemini.send_template("weapon", "stone slab blade", "common")
+	gemini.send_template("weapon", "ice sword", "trash")
+	gemini.send_template("weapon", "ice sword", "common")
+	gemini.send_template("weapon", "ice sword", "rare")
+	gemini.send_template("weapon", "ice sword", "epic")
+	gemini.send_template("weapon", "ice sword", "legendary")
 	spawn_enemy()
 	
 func spawn_enemy():
