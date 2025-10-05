@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=3 uid="uid://dtwxl35ia6krf"]
+
+[ext_resource type="Script" uid="uid://m7y5avsp7bwe" path="res://enemy/tweaker.gd" id="1_plsnk"]
+[ext_resource type="Texture2D" uid="uid://cnljrnaqilp7y" path="res://assets/enemy/tweaker/tweaker0R.png" id="2_plsnk"]
+[ext_resource type="Texture2D" uid="uid://c8fwm0h5oaocu" path="res://assets/enemy/tweaker/tweaker1R.png" id="3_obyde"]
+[ext_resource type="Texture2D" uid="uid://dc4b84jmo2uw8" path="res://assets/enemy/tweaker/tweaker2R.png" id="4_1fus0"]
+[ext_resource type="Texture2D" uid="uid://c28qrbiwnt8ih" path="res://assets/enemy/tweaker/tweaker3R.png" id="5_3htfy"]
+[ext_resource type="Texture2D" uid="uid://cqi3msqx81sr4" path="res://assets/enemy/tweaker/tweaker0L.png" id="6_pxtu7"]
+[ext_resource type="Texture2D" uid="uid://cfog0mcmxd54q" path="res://assets/enemy/tweaker/tweaker1L.png" id="7_afn84"]
+[ext_resource type="Texture2D" uid="uid://dwl16hcd0coyh" path="res://assets/enemy/tweaker/tweaker2L.png" id="8_20t8t"]
+[ext_resource type="Texture2D" uid="uid://bd6mu28byas02" path="res://assets/enemy/tweaker/tweaker3L.png" id="9_87imb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mvqj"]
+size = Vector2(32, 42.6667)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ofo6g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_plsnk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_obyde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1fus0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3htfy")
+}],
+"loop": true,
+"name": &"walk_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_pxtu7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_afn84")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_20t8t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_87imb")
+}],
+"loop": true,
+"name": &"walk_right",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hdkjs"]
+size = Vector2(32, 24)
+
+[node name="tweaker" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 2
+collision_mask = 6
+script = ExtResource("1_plsnk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.43051e-06)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_2mvqj")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1.13687e-13)
+scale = Vector2(0.616667, 0.6)
+sprite_frames = SubResource("SpriteFrames_ofo6g")
+animation = &"walk_left"
+
+[node name="AttackBox" type="Area2D" parent="."]
+scale = Vector2(1.5, 1.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
+position = Vector2(0, -4)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_hdkjs")
+
+[node name="AttackTimer" type="Timer" parent="AttackBox"]
+wait_time = 0.3
+
+[connection signal="body_entered" from="AttackBox" to="." method="_enemy_attackbox_entered"]
+[connection signal="body_exited" from="AttackBox" to="." method="_enemy_attackbox_exited"]
+[connection signal="timeout" from="AttackBox/AttackTimer" to="." method="_on_attack_timer_timeout"]
