@@ -1,29 +1,65 @@
-[gd_scene load_steps=5 format=3 uid="uid://snxuxiulcv8a"]
+[gd_scene load_steps=8 format=3 uid="uid://snxuxiulcv8a"]
 
 [ext_resource type="Script" uid="uid://ev5sev1i56cp" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://doyditic2y2vm" path="res://player/player.tscn" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://bsf8kv23ac27s" path="res://assets/bg_tileset/islandmap.png" id="3_h2yge"]
-
-[sub_resource type="GDScript" id="GDScript_ig7tw"]
-script/source = "extends Node2D
-
-# Keeps track of how many images have been added, for tiling
-"
+[ext_resource type="PackedScene" uid="uid://byjhqwccjf5bk" path="res://ui/in_game_ui.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://b8x70a02a1b3c" path="res://ui/experience_bar.tscn" id="5_exp_bar"]
+[ext_resource type="PackedScene" uid="uid://dsn802gpvh3vb" path="res://ui/gametimer.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bvk5l7e0v3d1h" path="res://ui/health_bar.tscn" id="7_health_bar"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
 
-[node name="WorldNode" type="Node2D" parent="."]
-scale = Vector2(2, 2)
-
-[node name="Background" type="Sprite2D" parent="WorldNode"]
+[node name="Background" type="Sprite2D" parent="."]
 z_index = -1
+scale = Vector2(2, 2)
 texture = ExtResource("3_h2yge")
 
 [node name="SBPlayer" parent="." instance=ExtResource("2_0xm2m")]
-scale = Vector2(5, 5)
+scale = Vector2(4, 4)
+
+[node name="HealthBar" parent="SBPlayer" instance=ExtResource("7_health_bar")]
+z_index = 1
+offset_left = -14.0
+offset_top = 12.0
+offset_right = 74.0
+offset_bottom = 42.0
+scale = Vector2(0.3, 0.3)
+
+[node name="ExperienceBar" parent="SBPlayer" instance=ExtResource("5_exp_bar")]
+z_index = 1
+offset_left = -144.0
+offset_top = -81.0
+offset_right = 816.0
+offset_bottom = -21.0
+scale = Vector2(0.3, 0.3)
+
+[node name="inGameUI" parent="SBPlayer" instance=ExtResource("4_1bvp3")]
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 118.0
+offset_top = -34.0
+offset_right = 118.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+
+[node name="Gametimer" parent="SBPlayer" instance=ExtResource("6_7mycd")]
+z_index = 1
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 114.0
+offset_top = -64.0
+offset_right = 114.0
+offset_bottom = -64.0
+grow_horizontal = 1
+scale = Vector2(0.3, 0.3)
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
-
-[node name="Node2D" type="Node2D" parent="."]
-script = SubResource("GDScript_ig7tw")

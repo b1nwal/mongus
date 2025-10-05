@@ -1,6 +1,11 @@
 extends Node2D
 
+var TweakerScene = preload("res://enemy/tweaker.tscn")
+
 @onready var gemini := GeminiClient.new()
+
+@onready var experience_bar = $SBPlayer/ExperienceBar
+@onready var health_bar = $SBPlayer/HealthBar
 
 func _ready():
 	add_child(gemini)
@@ -10,17 +15,29 @@ func _ready():
 	gemini.send_template("weapon", "rusty sword", "common")
 	gemini.send_template("weapon", "old dagger", "common")
 	gemini.send_template("weapon", "stone slab blade", "common")
-
+  spawn_enemy()
 
 				
 	
 	
+func spawn_enemy():
+	for i in 1:
+		var tweaker = TweakerScene.instantiate()
+		tweaker.position = Vector2(randi_range(-600,600),randi_range(-600,600))
+		tweaker.target = $SBPlayer
+		add_child(tweaker)
 
 func _on_ai_response(success: bool, data, cached: bool):
 	if success:
 		add_weapon(data)
 	else:
 		print("Error:", data)
+	
+func _on_request_completed(result, response_code, headers, body):
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	print(json["message"])
+
+var image_count := 0
 const IMAGE_SIZE := Vector2(256, 256)
 
 func add_weapon(data: Dictionary) -> void:
