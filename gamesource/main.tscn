@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://snxuxiulcv8a"]
+[gd_scene load_steps=14 format=3 uid="uid://snxuxiulcv8a"]
 
 [ext_resource type="Script" uid="uid://ev5sev1i56cp" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://doyditic2y2vm" path="res://player/player.tscn" id="2_0xm2m"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://42wa0f5vqml" path="res://scripts/ormm_crafting.gd" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://db5dbbil4mlxi" path="res://ui/levelup_popup.tscn" id="9_levelup_popup"]
 [ext_resource type="PackedScene" uid="uid://byx2mvsjdc5a5" path="res://ui/crafting_popup.tscn" id="10_crafting_popup"]
+[ext_resource type="PackedScene" uid="uid://c7lbhgcydf2bl" path="res://ui/death_screen.tscn" id="11_death_screen"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
@@ -92,6 +93,10 @@ size_flags_vertical = 4
 z_index = 1
 offset_top = 16.0
 offset_bottom = 16.0
+scale = Vector2(0.3, 0.3)
+
+[node name="DeathScreen" parent="SBPlayer" instance=ExtResource("11_death_screen")]
+z_index = 5
 scale = Vector2(0.3, 0.3)
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
