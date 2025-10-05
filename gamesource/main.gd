@@ -50,7 +50,7 @@ func _ready():
 	connect_crafting_button()
 	
 func spawn_enemy():
-	for i in 10:
+	for i in 1:
 		var tweaker = TweakerScene.instantiate()
 		tweaker.position = Vector2(randi_range(-600,600),randi_range(-600,600))
 		tweaker.target = $SBPlayer
