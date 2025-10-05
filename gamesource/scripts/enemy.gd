@@ -21,7 +21,6 @@ func _process(delta):
 			animated_sprite.play("walk_left")
 	
 func die():
-	print("i'm dead")
 	alive = false
 	
 	# Give player 2 experience points when enemy dies

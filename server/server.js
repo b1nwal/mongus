@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import md5 from "md5";
 import { GoogleGenAI, Type } from "@google/genai";
-import { generateSingleImage } from "./imageGenerator.js";
+import { generateCombinedImage } from "./imageGenerator.js";
 
 dotenv.config();
 
@@ -123,6 +123,7 @@ app.post("/generate", async (req, res) => {
 
       var id1 = payloadJSON["id1"]
       var id2 = payloadJSON["id2"]
+	  
 
       const hash = md5(id1 + ":" + id2);
       const cached = await getCachedResponse(hash);
@@ -138,7 +139,6 @@ app.post("/generate", async (req, res) => {
       const response1 = await getCachedResponse(id1);
       const response2 = await getCachedResponse(id2);
 
-      console.log(response1["description"])
       const prompt = "Generate a weapon which is a combination of these two weapons. IT MUST BE ONE WEAPON AFTERWARDS; A THEMATIC MERGE. Stats should be balanced, not a straight addition." + 
       "Weapon 1: Name, " + response1["name"] + " Description, " + response1["description"] + " Damage, " + response1["damage"] + " Cooldown, " + response1["cooldown"] + " slashAngle, " + response1["slash_angle"] + response1["swing_speed"] +
       "Weapon 2: Name, " + response2["name"] + " Description, " + response2["description"] + " Damage, " + response2["damage"] + " Cooldown, " + response2["cooldown"] + " slashAngle, " + response2["slash_angle"] + response2["swing_speed"] + 
@@ -158,7 +158,7 @@ app.post("/generate", async (req, res) => {
       });
       const data = JSON.parse(response.text)[0];
 
-      const base64Image = await generateSingleImage(
+      const base64Image = await generateCombinedImage(
         data["name"],
         data["description"],
         response1["image"],
