@@ -2,13 +2,14 @@ import { GoogleGenAI, Modality } from "@google/genai";
 import * as fs from "node:fs";
 import dotenv from "dotenv";
 import sharp from "sharp";
+import * as Jimp from "jimp";
 
 dotenv.config();
 
 const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY});
 
 
-export async function generateWeaponImage(name, description, bgColor = "#FF00FF", targetSize = 32) {
+export async function generateSingleImage(name, description) {
   try {
     // 1️⃣ Generate the image with Gemini
     const prompt = `Create a pixel art image of a weapon:
@@ -102,3 +103,77 @@ async function makeIconTransparent(inputBuffer, options = {}) {
 
     return outputBuffer;
 }
+
+export async function generateCombinedImage(name, description, image1, image2) {
+    try {
+
+        newImage = combineBase64Images({image1, image2})
+        // 1️⃣ Generate the image with Gemini
+    
+        const prompt = [{ text: `Create a pixel art image of a weapon:
+            Name: ${name}
+            Description: ${description}
+            Note: Combine the two weapons in the given image into one new form fitting the name and description. These two seperate swords should become one new whole.
+            Format: PNG, 512x512, square, make the weapon point DIRECTLY up, that is the hilt is on the bottom, DO NOT HAVE IT UPSIDE DOWN.
+            Background color: use a color that isnt used in the weapon. must be a flat color. NO GRADIENT, NO BORDERS. ONLY PURE ONE COLOR.
+            No text or watermark.`},
+            {
+              inlineData: {
+                mimeType: "image/png",
+                data: base64Image,
+              },
+            },
+          ];
+        
+        const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash-image",
+            contents: prompt,
+            config: {
+                imageConfig: {
+                  aspectRatio: "1:1",
+                },
+              }
+        });
+    
+        for (const part of response.candidates[0].content.parts) {
+            if (part.text) {
+              console.log(part.text);
+            } else if (part.inlineData) {
+              const imageData = part.inlineData.data;
+              const buffer = Buffer.from(imageData, "base64");
+              const transparentBuffer = await makeIconTransparent(buffer)
+              return transparentBuffer.toString('base64');
+            }
+        }
+      } catch (err) {
+        console.error("Error generating weapon image:", err);
+        throw err;
+      }
+}
+
+async function combineBase64Images(base64Images) {
+    const images = await Promise.all(base64Images.map(async (base64) => {
+        return await Jimp.read(Buffer.from(base64.split(',')[1], 'base64'));
+    }));
+
+    let totalWidth = 0;
+    let maxHeight = 0;
+
+    images.forEach(img => {
+        totalWidth += img.bitmap.width;
+        if (img.bitmap.height > maxHeight) {
+            maxHeight = img.bitmap.height;
+        }
+    });
+
+    const newImage = await new Jimp(totalWidth, maxHeight, 0xFFFFFFFF); // White background
+
+    let currentX = 0;
+    images.forEach(img => {
+        newImage.composite(img, currentX, 0);
+        currentX += img.bitmap.width;
+    });
+
+    return await newImage.getBase64Async(Jimp.MIME_PNG); // Or Jimp.MIME_JPEG etc.
+}
+

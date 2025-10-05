@@ -2,29 +2,61 @@ extends Entity
 
 @export var swing_test_key: Key = Key.KEY_Q
 var between: float = 0.0
+
+@onready var inv_ui = $InventoryUI
+var inventory = Inventory.new()
+
+func add_weapon(data: Dictionary) -> void:
+	# Decode Base64 into raw bytes
+	var base64_string: String = data["image"]
+	var raw_image_data = Marshalls.base64_to_raw(base64_string)
+	
+	# Load bytes into an Image
+	var img = Image.new()
+	var err = img.load_png_from_buffer(raw_image_data)
+	if err != OK:
+		push_error("Failed to load image from Base64")
+		return
+	
+	# Create a Texture2D from the Image
+	var image_texture = ImageTexture.create_from_image(img)
+	
+	var swing_weapon = SwingWeapon.new()
+	swing_weapon.weapon_info = {"name": data["name"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"]}
+	inventory.add_item(swing_weapon)
+	inv_ui.update_ui()
+	# Increment image counter
+
 func _process(delta):
 	# Check if the swing test key was just pressed
 	
-	
-	if Input.is_key_pressed(swing_test_key):
-		between += delta
-		if (between >= 3.5):
-			_swing_all_weapons()
-			between = 0.0
+	tick_weapons(delta)
 
 # Function to swing all weapon children
-func _swing_all_weapons():
-	# Loop over all direct children
+func tick_weapons(delta):
+	var angle_to_enemy = get_nearest_enemy()
 	for child in get_children():
-		# Only swing weapons (Sword, or any Weapon subclass)
-		if child is Weapon:
-			# Only swing if it has a swing_sword method (optional safety check)
-			if child.has_method("swing_sword"):
-				var random_angle = randi() % 360  # Random angle between 0 and 359 degrees
-				child.swing_sword(random_angle)
-				
+		if child is SwingWeapon:
+			child.internal_cooldown += delta
+			if child.internal_cooldown > child.cooldown and !child.inswing:
+				child.internal_cooldown = 0.0
+				if (angle_to_enemy != null):
+					child.swing_sword(angle_to_enemy)
 				
 var player_speed = 300;
+
+func get_nearest_enemy():
+	var used_angle = null
+	var current_closest = null
+	
+	for child in get_tree().root.get_child(0).get_children():
+		
+		if child.name == "tweaker" and (current_closest == null || (self.position - child.position).length() < current_closest.length()):
+			used_angle = rad_to_deg(self.position.angle_to_point(child.position))+90
+			
+			current_closest = self.position - child.position
+			
+	return used_angle
 
 func die():
 	print("PLAYER DEAD")

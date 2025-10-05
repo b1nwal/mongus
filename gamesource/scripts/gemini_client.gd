@@ -1,5 +1,8 @@
 extends Node
+
 class_name GeminiClient
+
+
 ## A reusable Gemini API client for your game.
 ## Supports multiple concurrent requests safely.
 
@@ -9,9 +12,9 @@ const SERVER_URL := "http://localhost:3000/generate"
 
 # --- Prompt templates ---
 # Templates now only define the "payload" string; "type" is passed separately.
-var PROMPT_TEMPLATES := {
+@export var PROMPT_TEMPLATES := {
 	"weapon": func(name: String = "", rarity: String = "any") -> String:
-		return "Generate a weapon" + ((" themed around " + name) if name != "" else "") + ". It should have a name, a flavour-text description (purely cosmetic), damage number (integer, positive, scaling based on rarity, between 1 and 1000 NO HIGHER), a swing speed (between 0.3 and 3) which is inversely proportional to the swing angle, a swing angle (between 65 and 275), a scale factor (between 1.0 and 1.5 depending on heft), and is " + rarity + " rarity.",
+		return "Generate a weapon" + ((" themed around " + name) if name != "" else "") + ". It should have a name, a flavour-text description (purely cosmetic), damage number (integer, positive, scaling based on rarity, between 1 and 1000 NO HIGHER), a swing speed (between 0.3 and 3) which is inversely proportional to the swing angle, a swing angle (between 65 and 275), a scale factor (between 1.0 and 1.5 depending on heft), a cooldown (time between attacks, 0.9-2 seconds), and is " + rarity + " rarity.",
 	
 	"npc": func(role: String = "") -> String:
 		return "Create a JSON list of 3 NPCs for an RPG" + ((" specializing in " + role) if role != "" else "") + ". Include their name, personality, and backstory summary."
