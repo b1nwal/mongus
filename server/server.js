@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore";
 import md5 from "md5";
 import { GoogleGenAI, Type } from "@google/genai";
 import { generateSingleImage } from "./imageGenerator.js";
@@ -179,6 +179,65 @@ app.post("/generate", async (req, res) => {
   } catch (err) {
     console.error("Gemini error:", err);
     res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// --- Score Management Endpoints ---
+
+// Save player score to Firestore
+app.post("/api/save-score", async (req, res) => {
+  try {
+    const { name, experience, timestamp } = req.body;
+    
+    if (!name || experience === undefined) {
+      return res.status(400).json({ success: false, error: "Name and experience are required" });
+    }
+    
+    // Create a unique document ID
+    const docId = `${name}_${timestamp}`;
+    
+    // Save to Firestore
+    await setDoc(doc(db, "scores", docId), {
+      name: name,
+      experience: experience,
+      timestamp: timestamp
+    });
+    
+    console.log(`Score saved: ${name} - ${experience} XP`);
+    res.json({ success: true, message: "Score saved successfully" });
+  } catch (error) {
+    console.error("Error saving score:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Get leaderboard from Firestore
+app.get("/api/leaderboard", async (req, res) => {
+  try {
+    // Get all scores from Firestore
+    const scoresRef = collection(db, "scores");
+    const snapshot = await getDocs(scoresRef);
+    
+    const scores = [];
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      scores.push({
+        name: data.name,
+        experience: data.experience,
+        timestamp: data.timestamp
+      });
+    });
+    
+    // Sort by experience (highest first)
+    scores.sort((a, b) => b.experience - a.experience);
+    
+    // Return top 10
+    const topScores = scores.slice(0, 10);
+    
+    res.json(topScores);
+  } catch (error) {
+    console.error("Error getting leaderboard:", error);
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 

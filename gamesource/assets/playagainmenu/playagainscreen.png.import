@@ -2,22 +2,24 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://23ptjp1lf0ux"
-path="res://.godot/imported/Gemini_Generated_Image_deyyqpdeyyqpdeyy-removebg-preview.png-2d28107536c6b5ac5ce4110de32d60bf.ctex"
+uid="uid://dwlnbro45b6st"
+path="res://.godot/imported/playagainscreen.png-cac61331e6168961423b25c4ee5e10a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/death_screen/Gemini_Generated_Image_deyyqpdeyyqpdeyy-removebg-preview.png"
-dest_files=["res://.godot/imported/Gemini_Generated_Image_deyyqpdeyyqpdeyy-removebg-preview.png-2d28107536c6b5ac5ce4110de32d60bf.ctex"]
+source_file="res://assets/playagainmenu/playagainscreen.png"
+dest_files=["res://.godot/imported/playagainscreen.png-cac61331e6168961423b25c4ee5e10a1.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
@@ -25,6 +27,10 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
