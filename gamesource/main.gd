@@ -27,7 +27,7 @@ func _ready():
 	spawn_enemy()
 	
 func spawn_enemy():
-	for i in 100:
+	for i in 50:
 		var tweaker = TweakerScene.instantiate()
 		tweaker.position = Vector2(randi_range(-600,600),randi_range(-600,600))
 		tweaker.target = $SBPlayer

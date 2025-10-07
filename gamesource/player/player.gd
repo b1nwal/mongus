@@ -24,7 +24,7 @@ func add_weapon(data: Dictionary) -> void:
 	var image_texture = ImageTexture.create_from_image(img)
 	
 	var swing_weapon = SwingWeapon.new()
-	swing_weapon.weapon_info = {"name": data["name"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"]}
+	swing_weapon.weapon_info = {"name": data["name"], "description": data["description"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"]}
 	add_child(swing_weapon)
 	inventory.add_item(swing_weapon)
 	inv_ui.update_ui()
@@ -60,18 +60,7 @@ func get_nearest_enemy():
 
 func die():
 	print("PLAYER DEAD")
-	# Show death screen instead of just pausing
-	show_death_screen()
-
-func show_death_screen():
-	"""Show the death screen popup"""
-	# Find the death screen in the scene
-	var death_screen = get_node("/root/Main/SBPlayer/DeathScreen")
-	if death_screen:
-		death_screen.show_death_screen()
-	else:
-		print("Death screen not found!")
-		get_tree().paused = true
+	get_tree().paused = true
 
 func _physics_process(delta):
 	var movement = Vector2.ZERO

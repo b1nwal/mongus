@@ -158,7 +158,7 @@ app.post("/generate", async (req, res) => {
       });
       const data = JSON.parse(response.text)[0];
 
-      const base64Image = await generateSingleImage(
+      const base64Image = await generateCombinedImage(
         data["name"],
         data["description"],
         response1["image"],
