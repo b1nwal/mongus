@@ -25,7 +25,6 @@ func add_weapon(data: Dictionary) -> void:
 	
 	var swing_weapon = SwingWeapon.new()
 	swing_weapon.weapon_info = {"name": data["name"], "description": data["description"], "damage": data["damage"], "texture": image_texture, "slash_angle": data["slashAngle"], "swing_speed": data["swingSpeed"],"scale_factor": data["scaleFactor"]}
-	$ItemGetPopUp.update(swing_weapon)
 	add_child(swing_weapon)
 	inventory.add_item(swing_weapon)
 	inv_ui.update_ui()
