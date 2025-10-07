@@ -14,31 +14,7 @@ var TweakerScene = preload("res://enemy/tweaker.tscn")
 
 func _ready():
 	add_child(gemini)
-	
-	ormm_request.request("octopus blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("water blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("jogging blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("music blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("heat blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("dog blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("fog blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("green blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("red blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("blood blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("glue blade")
-	await get_tree().create_timer(1.0).timeout
-	ormm_request.request("gun blade")
-	spawn_enemy()
+	ormm_request.request("iron blade")
 	
 	# Connect level up signal
 	experience_bar.level_up.connect(_on_level_up)
@@ -48,13 +24,15 @@ func _ready():
 	
 	# Connect crafting button
 	connect_crafting_button()
+	spawn_enemy()
 	
 func spawn_enemy():
-	for i in 10:
+	for i in 50:
 		var tweaker = TweakerScene.instantiate()
 		tweaker.position = Vector2(randi_range(-600,600),randi_range(-600,600))
 		tweaker.target = $SBPlayer
 		add_child(tweaker)
+		get_tree().create_timer(5).timeout
 
 func _on_level_up(new_level: int):
 	"""Handle level up event - show popup"""

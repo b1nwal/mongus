@@ -32,8 +32,6 @@ func add_weapon(data: Dictionary) -> void:
 	# Increment image counter
 
 func _process(delta):
-	# Check if the swing test key was just pressed
-	
 	tick_weapons(delta)
 
 # Function to swing all weapon children
@@ -53,10 +51,9 @@ func get_nearest_enemy():
 	var used_angle = null
 	var current_closest = null
 	
-	for child in get_tree().root.get_child(0).get_children():
-		
+	for child in get_node("/root/Main").get_children():
 		if child.name == "tweaker" and (current_closest == null || (self.position - child.position).length() < current_closest.length()):
-			used_angle = rad_to_deg(self.position.angle_to_point(child.position))+90
+			used_angle = rad_to_deg(self.position.angle_to_point(child.position))
 			
 			current_closest = self.position - child.position
 			

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c28qrbiwnt8ih"
-path="res://.godot/imported/tweaker3R.png-cf7825f18e2596a0c9a693e616e08c72.ctex"
+uid="uid://1m0jjgkjaota"
+path="res://.godot/imported/Gemini_Generated_Image_m8r8eqm8r8eqm8r8_1_-removebg-preview.png-0d56c1c562a82f160669a7caeb1bbceb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy/tweaker/tweaker3R.png"
-dest_files=["res://.godot/imported/tweaker3R.png-cf7825f18e2596a0c9a693e616e08c72.ctex"]
+source_file="res://assets/death_screen/Gemini_Generated_Image_m8r8eqm8r8eqm8r8_1_-removebg-preview.png"
+dest_files=["res://.godot/imported/Gemini_Generated_Image_m8r8eqm8r8eqm8r8_1_-removebg-preview.png-0d56c1c562a82f160669a7caeb1bbceb.ctex"]
 
 [params]
 
