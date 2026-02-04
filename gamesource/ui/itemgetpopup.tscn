@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://i6m8kh0gpg1i"]
+
+[ext_resource type="Script" uid="uid://dm3pp8alj6fdh" path="res://ui/itemgetpopup.gd" id="1_xd57l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xc4j"]
+bg_color = Color(0.675371, 0.591093, 0.399126, 1)
+
+[node name="Control" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xd57l")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 128.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7xc4j")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 16.0
+offset_right = 128.0
+offset_bottom = 56.0
+text = "Obtained"
+
+[node name="Description" type="RichTextLabel" parent="."]
+offset_left = 8.0
+offset_top = 56.0
+offset_right = 312.0
+offset_bottom = 120.0
+
+[node name="ItemName" type="RichTextLabel" parent="."]
+offset_left = 136.0
+offset_top = 16.0
+offset_right = 312.0
+offset_bottom = 56.0
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 48.0
+offset_bottom = 48.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel2"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 42.0
+offset_bottom = 42.0
+scale = Vector2(0.9, 0.9)
+expand_mode = 1
